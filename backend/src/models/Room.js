@@ -10,7 +10,7 @@ const roomSchema = new mongoose.Schema(
     roomType: {
       type: String,
       required: true,
-      enum: ["sharing", "rentel"],
+      enum: ["sharing", "rental"],
     },
     location: {
       type: String,
@@ -26,6 +26,18 @@ const roomSchema = new mongoose.Schema(
     description: {
       type: String,
     },
+    mediaIDs: [
+      {
+        url: {
+          type: String,
+          required: true,
+        },
+        public_id: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true },
 );

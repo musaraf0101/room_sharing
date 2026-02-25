@@ -4,6 +4,7 @@ import {
   createRoomValidation,
   updateRoomValidation,
 } from "../validation/room.validation.js";
+import cloudinary from "./../config/cloudinary.js";
 
 export const getAllRoom = async (req, res) => {
   try {
@@ -15,7 +16,10 @@ export const getAllRoom = async (req, res) => {
 
     const totalRooms = await Room.countDocuments();
 
-    const rooms = await Room.find().skip(skip).limit(limit);
+    const rooms = await Room.find()
+      .skip(skip)
+      .limit(limit)
+      .sort({ createdAt: -1 });
 
     res.status(200).json({
       success: true,
@@ -35,16 +39,17 @@ export const getAllRoom = async (req, res) => {
     });
   }
 };
+
 export const getRoomById = async (req, res) => {
   try {
-    logger.info("get all room end point hit...");
+    logger.info("get room by id end point hit...");
 
     const { id } = req.params;
 
     const room = await Room.findById(id);
 
     if (!room) {
-      return res.status(200).json({
+      return res.status(404).json({
         success: false,
         message: "room details not found",
       });
@@ -64,9 +69,10 @@ export const getRoomById = async (req, res) => {
     });
   }
 };
+
 export const createRoom = async (req, res) => {
   try {
-    logger.info("get all room end point hit...");
+    logger.info("create room end point hit...");
 
     const { error } = createRoomValidation(req.body);
 
@@ -88,6 +94,23 @@ export const createRoom = async (req, res) => {
     if (title !== undefined) rooms.title = title;
     if (description !== undefined) rooms.description = description;
 
+    // save single image
+    if (req.file) {
+      rooms.mediaIDs = [
+        {
+          url: req.file.path,
+          public_id: req.file.filename,
+        },
+      ];
+    }
+    // save multiple image
+    if (req.files && req.files.length > 0) {
+      rooms.mediaIDs = req.files.map((file) => ({
+        url: file.path,
+        public_id: file.filename,
+      }));
+    }
+
     rooms.userId = req.userId;
 
     const newRoom = await Room.create(rooms);
@@ -106,9 +129,10 @@ export const createRoom = async (req, res) => {
     });
   }
 };
+
 export const updateRoom = async (req, res) => {
   try {
-    logger.info("get all room end point hit...");
+    logger.info("update room end point hit...");
 
     const { error } = updateRoomValidation(req.body);
 
@@ -125,7 +149,7 @@ export const updateRoom = async (req, res) => {
     const rooms = await Room.findById(id);
 
     if (!rooms) {
-      return res.status(200).json({
+      return res.status(404).json({
         success: false,
         message: "room details not founded",
       });
@@ -146,6 +170,42 @@ export const updateRoom = async (req, res) => {
     if (title !== undefined) updatedRooms.title = title;
     if (description !== undefined) updatedRooms.description = description;
 
+    // single image replace
+    if (req.file) {
+      // delete old images from cloudinary
+      if (rooms.mediaIDs && rooms.mediaIDs.length > 0) {
+        for (const img of rooms.mediaIDs) {
+          if (img.public_id) {
+            await cloudinary.uploader.destroy(img.public_id);
+          }
+        }
+      }
+
+      updatedRooms.mediaIDs = [
+        {
+          url: req.file.path,
+          public_id: req.file.filename,
+        },
+      ];
+    }
+
+    // multiple image replace
+    if (req.files && req.files.length > 0) {
+      // delete old images
+      if (rooms.mediaIDs && rooms.mediaIDs.length > 0) {
+        for (const img of rooms.mediaIDs) {
+          if (img.public_id) {
+            await cloudinary.uploader.destroy(img.public_id);
+          }
+        }
+      }
+
+      updatedRooms.mediaIDs = req.files.map((file) => ({
+        url: file.path,
+        public_id: file.filename,
+      }));
+    }
+
     const updatedRoom = await Room.findByIdAndUpdate(id, updatedRooms, {
       new: true,
       runValidators: true,
@@ -165,9 +225,42 @@ export const updateRoom = async (req, res) => {
     });
   }
 };
-export const deleteRooom = async (req, res) => {
+
+export const deleteRoom = async (req, res) => {
   try {
-    logger.info("get all room end point hit...");
+    logger.info("delete room end point hit...");
+
+    const { id } = req.params;
+    const rooms = await Room.findById(id);
+
+    if (!rooms) {
+      return res.status(404).json({
+        success: false,
+        message: "room not found",
+      });
+    }
+
+    if (rooms.userId.toString() !== req.userId.toString()) {
+      return res.status(403).json({
+        success: false,
+        message: "You can delete only your own room",
+      });
+    }
+
+    if (rooms.mediaIDs && rooms.mediaIDs.length > 0) {
+      for (const img of rooms.mediaIDs) {
+        if (img.public_id) {
+          await cloudinary.uploader.destroy(img.public_id);
+        }
+      }
+    }
+
+    await Room.findByIdAndDelete(id);
+
+    res.status(200).json({
+      success: true,
+      message: "room details delete success",
+    });
   } catch (error) {
     logger.error(error.message);
     res.status(500).json({
