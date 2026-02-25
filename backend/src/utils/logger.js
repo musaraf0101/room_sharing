@@ -8,7 +8,7 @@ export const logger = winston.createLogger({
     winston.format.splat(),
     winston.format.json(),
   ),
-  defaultMeta: { service: "event-booking-backend" },
+  defaultMeta: { service: "room_sharing_backend" },
   transports: [
     new winston.transports.Console({
       format: winston.format.combine(

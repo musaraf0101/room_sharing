@@ -5,10 +5,14 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRouter from "./routes/auth.routes.js";
 import { errorHandler } from "./middleware/errorHandler.js";
+import { DBConnection } from "./config/db.js";
+import { logger } from "./utils/logger.js";
 
 dotenv.config();
 
 const app = express();
+
+DBConnection()
 
 app.use(cors());
 app.use(helmet());
@@ -20,4 +24,5 @@ app.use("/api/auth", authRouter);
 
 app.listen(3000, () => {
   console.log("server is running");
+  logger.info("server is running")
 });
