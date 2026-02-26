@@ -8,6 +8,7 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import { DBConnection } from "./config/db.js";
 import { logger } from "./utils/logger.js";
 import roomRouter from "./routes/room.route.js";
+import adminRouter from "./routes/admin.routes.js";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
 app.use("/api/room", roomRouter);
+app.use("/api/statistics", adminRouter);
 
 app.use(errorHandler);
 

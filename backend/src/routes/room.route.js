@@ -8,13 +8,36 @@ import {
   updateRoom,
 } from "../controllers/rooms.controller.js";
 import upload from "./../middleware/upload.js";
+import { authorizedRoles } from "./../middleware/verifyRole.js";
 
 const roomRouter = express.Router();
 
-roomRouter.get("/", verifyToken, getAllRoom);
-roomRouter.get("/:id", verifyToken, getRoomById);
-roomRouter.post("/", verifyToken, upload.array("images", 4), createRoom);
-roomRouter.put("/:id", verifyToken, upload.array("images", 4), updateRoom);
-roomRouter.delete("/:id", verifyToken, deleteRoom);
+roomRouter.get("/", verifyToken, authorizedRoles("admin", "user"), getAllRoom);
+roomRouter.get(
+  "/:id",
+  verifyToken,
+  authorizedRoles("admin", "user"),
+  getRoomById,
+);
+roomRouter.post(
+  "/",
+  verifyToken,
+  authorizedRoles("admin", "user"),
+  upload.array("images", 4),
+  createRoom,
+);
+roomRouter.put(
+  "/:id",
+  verifyToken,
+  authorizedRoles("admin", "user"),
+  upload.array("images", 4),
+  updateRoom,
+);
+roomRouter.delete(
+  "/:id",
+  verifyToken,
+  authorizedRoles("admin", "user"),
+  deleteRoom,
+);
 
 export default roomRouter;
