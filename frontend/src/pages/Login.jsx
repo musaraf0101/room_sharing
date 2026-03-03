@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "./../utils/api";
+import { useAuth } from "../context/AuthContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -8,11 +9,16 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const { login } = useAuth();
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
       await api.post("/auth/login", { email: email, password: password });
+
+      login();
+
       navigate("/home");
     } catch (error) {
       alert(error.response?.data?.message || "Login Error");
@@ -43,7 +49,7 @@ const Login = () => {
               className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-400"
             />
           </div>
-          
+
           <div>
             <div className="flex justify-between mb-1">
               <label className="text-sm font-medium text-slate-700">
