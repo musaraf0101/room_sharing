@@ -21,7 +21,7 @@ export const register = async (req, res) => {
       });
     }
 
-    const { username, email, password } = req.body;
+    const { username, email, password, phoneNumber } = req.body;
 
     const checkUser = await User.findOne({ $or: [{ email }, { username }] });
 
@@ -40,6 +40,7 @@ export const register = async (req, res) => {
       username,
       password: hashedPassword,
       email,
+      phoneNumber,
     });
 
     logger.warn("user saved successfully", user._id);
@@ -51,6 +52,7 @@ export const register = async (req, res) => {
         id: user._id,
         username: user.username,
         email: user.email,
+        phoneNumber: user.phoneNumber,
       },
     });
   } catch (error) {
@@ -112,6 +114,7 @@ export const login = async (req, res) => {
         id: user._id,
         name: user.username,
         email: user.email,
+        phoneNumber: user.phoneNumber,
       },
     });
   } catch (error) {

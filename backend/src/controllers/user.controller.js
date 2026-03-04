@@ -7,7 +7,7 @@ export const updateProfile = async (req, res) => {
   try {
     logger.info("user update end point hit...");
     const { id } = req.params;
-    const { username, email, password } = req.body;
+    const { username, email, password, phoneNumber } = req.body;
 
     const { error } = updateProfileUser(req.body);
     if (error) {
@@ -43,6 +43,7 @@ export const updateProfile = async (req, res) => {
 
     if (username !== undefined) updateUserProfile.username = username;
     if (email !== undefined) updateUserProfile.email = email;
+    if (phoneNumber !== undefined) updateUserProfile.phoneNumber = phoneNumber;
     if (password) {
       updateUserProfile.password = await bcrypt.hash(password, 10);
     }
@@ -57,6 +58,7 @@ export const updateProfile = async (req, res) => {
       data: {
         username: updateUser.username,
         email: updateUser.email,
+        phoneNumber: updateUser.phoneNumber,
       },
     });
   } catch (error) {
