@@ -45,7 +45,6 @@ const CreateRoom = () => {
         <h2 className="text-2xl font-bold mb-6 text-center">Create New Room</h2>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Room Type */}
           <div>
             <label className="block mb-2 font-semibold">Room Type</label>
             <select
@@ -58,7 +57,6 @@ const CreateRoom = () => {
             </select>
           </div>
 
-          {/* Location */}
           <div>
             <label className="block mb-2 font-semibold">Location</label>
             <input
@@ -71,7 +69,6 @@ const CreateRoom = () => {
             />
           </div>
 
-          {/* Price */}
           <div>
             <label className="block mb-2 font-semibold">Price (Rs)</label>
             <input
@@ -84,7 +81,6 @@ const CreateRoom = () => {
             />
           </div>
 
-          {/* Title */}
           <div>
             <label className="block mb-2 font-semibold">Title</label>
             <input
@@ -96,7 +92,6 @@ const CreateRoom = () => {
             />
           </div>
 
-          {/* Description */}
           <div>
             <label className="block mb-2 font-semibold">Description</label>
             <textarea
@@ -108,18 +103,16 @@ const CreateRoom = () => {
             />
           </div>
 
-          {/* Image Upload */}
           <div>
             <label className="block mb-2 font-semibold">Upload Images</label>
             <input
               type="file"
               multiple
               onChange={handleImageChange}
-              className="w-full"
+              className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
             />
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition-all"

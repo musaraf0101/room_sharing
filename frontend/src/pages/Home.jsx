@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import api from "../utils/api";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const { logout } = useAuth();
   const [rooms, setRooms] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const fetchRooms = async () => {
     try {

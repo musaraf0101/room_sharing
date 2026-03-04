@@ -15,14 +15,17 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await api.post("/auth/login", { email: email, password: password });
+      const res = await api.post("/auth/login", {
+        email: email,
+        password: password,
+      });
 
       localStorage.setItem("token", res.data.token);
       login();
 
       navigate("/home");
     } catch (error) {
-      alert(error.response?.data?.message || "Login Error");
+      console.log(error.response?.data?.message || "Login Error");
     }
   };
   return (
