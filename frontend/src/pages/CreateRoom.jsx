@@ -9,6 +9,8 @@ const CreateRoom = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [images, setImages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState(null);
   const navigate = useNavigate();
 
   const handleImageChange = (e) => {
@@ -19,6 +21,8 @@ const CreateRoom = () => {
     e.preventDefault();
 
     try {
+      setLoading(true);
+      setErrors(null);
       const formData = new FormData();
 
       formData.append("roomType", roomType);
@@ -36,8 +40,27 @@ const CreateRoom = () => {
       navigate("/home");
     } catch (error) {
       console.log(error);
+      setErrors(error.response?.data?.message || "somthing went wrong");
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-lg font-semibold text-blue-600 animate-pulse">
+          Loading...
+        </p>
+      </div>
+    );
+
+  if (errors)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-lg font-semibold text-red-600">{errors}</p>
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center p-6">

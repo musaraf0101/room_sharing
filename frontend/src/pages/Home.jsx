@@ -6,14 +6,20 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const { logout } = useAuth();
   const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState(null);
   const navigate = useNavigate();
 
   const fetchRooms = async () => {
     try {
+      setLoading(true);
+      setErrors(null);
       const res = await api.get("/room/");
       setRooms(res.data.data);
     } catch (error) {
-      console.log(error);
+      setErrors(error.response?.data?.message || "somthing went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -32,6 +38,22 @@ const Home = () => {
       console.log(error);
     }
   };
+
+  if (loading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-lg font-semibold text-blue-600 animate-pulse">
+          Loading...
+        </p>
+      </div>
+    );
+
+  if (errors)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-lg font-semibold text-red-600">{errors}</p>
+      </div>
+    );
 
   return (
     <div className="min-h-screen bg-gray-100">
