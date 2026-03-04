@@ -41,6 +41,29 @@ export const getAllRoom = async (req, res) => {
   }
 };
 
+export const getUserRooms = async (req, res) => {
+  try {
+    logger.info("get user rooms end point hit...");
+
+    const rooms = await Room.find({ userId: req.userId }).sort({
+      createdAt: -1,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "user rooms fetch success",
+      data: rooms,
+    });
+  } catch (error) {
+    logger.error(error.message);
+    res.status(500).json({
+      success: false,
+      message: "internal server error",
+      error: error.message,
+    });
+  }
+};
+
 export const getRoomById = async (req, res) => {
   try {
     logger.info("get room by id end point hit...");

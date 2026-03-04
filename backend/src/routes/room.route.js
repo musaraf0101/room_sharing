@@ -4,6 +4,7 @@ import {
   createRoom,
   deleteRoom,
   getAllRoom,
+  getUserRooms,
   getRoomById,
   updateRoom,
 } from "../controllers/rooms.controller.js";
@@ -13,6 +14,12 @@ import { authorizedRoles } from "./../middleware/verifyRole.js";
 const roomRouter = express.Router();
 
 roomRouter.get("/", verifyToken, authorizedRoles("admin", "user"), getAllRoom);
+roomRouter.get(
+  "/my-rooms",
+  verifyToken,
+  authorizedRoles("admin", "user"),
+  getUserRooms,
+);
 roomRouter.get(
   "/:id",
   verifyToken,

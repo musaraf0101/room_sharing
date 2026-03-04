@@ -48,6 +48,7 @@ export const register = async (req, res) => {
       success: true,
       message: "user registration success",
       data: {
+        id: user._id,
         username: user.username,
         email: user.email,
       },
@@ -108,6 +109,7 @@ export const login = async (req, res) => {
       message: "login success",
       token,
       data: {
+        id: user._id,
         name: user.username,
         email: user.email,
       },

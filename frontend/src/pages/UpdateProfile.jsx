@@ -1,38 +1,64 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import api from "./../utils/api";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import api from "../utils/api";
+import { useAuth } from "../context/AuthContext";
 
-const Register = () => {
-  const [userName, setUserName] = useState("");
+const UpdateProfile = () => {
+  const { id } = useParams();
+  const { user } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("");
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
 
-  const handleRegister = async (e) => {
+  useEffect(() => {
+    if (user && (user.id === id || user.id === id.toString())) {
+      setEmail(user.email || "");
+      setUserName(user.name || "");
+    }
+  }, [user, id]);
+
+  const handleUpdate = async (e) => {
     e.preventDefault();
+    setError(null);
 
     try {
-      await api.post("/auth/register", {
+      await api.put(`/user/${id}`, {
         username: userName,
         email: email,
         password: password,
       });
 
-      navigate("/");
+      // Update local storage and context
+      login({ ...user, name: userName, email: email });
+
+      console.log("Profile updated successfully!");
+      navigate("/home");
     } catch (error) {
-      console.log(error.response?.data?.message || "Register Error");
+      setError(error.response?.data?.message || "Update profile error");
+      console.log(error.response?.data?.message || "Update profile error");
     }
   };
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
       <form
-        onSubmit={handleRegister}
+        onSubmit={handleUpdate}
         className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl shadow-slate-200/60"
       >
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-slate-800">Create Account</h2>
+        <div className="text-center mb-6">
+          <h2 className="text-2xl font-bold text-slate-800">Update Profile</h2>
+          <p className="text-slate-500 text-sm mt-1">
+            Manage your account information
+          </p>
         </div>
+
+        {error && (
+          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg">
+            {error}
+          </div>
+        )}
 
         <div className="space-y-5">
           <div>
@@ -42,6 +68,7 @@ const Register = () => {
             <input
               type="text"
               placeholder="User Name"
+              value={userName}
               onChange={(e) => setUserName(e.target.value)}
               required
               className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-400"
@@ -55,6 +82,7 @@ const Register = () => {
             <input
               type="email"
               placeholder="Email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-400"
@@ -67,9 +95,9 @@ const Register = () => {
             </label>
             <input
               type="password"
-              placeholder="Password"
+              placeholder="New Password (optional)"
+              value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
               className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-400"
             />
           </div>
@@ -78,18 +106,12 @@ const Register = () => {
             type="submit"
             className="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-700 transform active:scale-[0.98] transition-all shadow-lg shadow-blue-200"
           >
-            Register
+            Update
           </button>
         </div>
-        <p className="text-center text-slate-600 mt-8 text-sm">
-          Already Having account please login
-          <Link to="/" className="font-bold text-blue-600 hover:underline">
-            Login
-          </Link>
-        </p>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default UpdateProfile;

@@ -6,6 +6,9 @@ import PublicRoute from "./utils/PublicRoute";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import CreateRoom from "./pages/CreateRoom";
 import ViewRoom from "./pages/ViewRoom";
+import UpdateProfile from "./pages/UpdateProfile";
+import MyRooms from "./pages/MyRooms";
+import UpdateRoom from "./pages/UpdateRoom";
 
 const App = () => {
   return (
@@ -47,6 +50,30 @@ const App = () => {
         element={
           <ProtectedRoute>
             <ViewRoom />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/my-rooms"
+        element={
+          <ProtectedRoute>
+            <MyRooms />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/update-room/:id"
+        element={
+          <ProtectedRoute>
+            <UpdateRoom />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/profile/:id"
+        element={
+          <ProtectedRoute>
+            <UpdateProfile />
           </ProtectedRoute>
         }
       />

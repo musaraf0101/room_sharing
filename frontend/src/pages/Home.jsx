@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { LogOut, User, FileText } from "lucide-react";
 
 const Home = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
@@ -109,14 +109,14 @@ const Home = () => {
               onClick={() => setShowProfileMenu((prev) => !prev)}
               className="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold shadow hover:bg-blue-700 transition"
             >
-              U
+              {user?.name?.charAt(0).toUpperCase() || "U"}
             </button>
 
             {showProfileMenu && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden z-50 animate-fadeIn">
                 <button
                   onClick={() => {
-                    navigate("/profile");
+                    navigate(`/profile/${user?.id}`);
                     setShowProfileMenu(false);
                   }}
                   className="flex items-center gap-2 w-full text-left px-4 py-3 text-sm hover:bg-gray-50 transition"

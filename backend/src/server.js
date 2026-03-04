@@ -9,6 +9,7 @@ import { DBConnection } from "./config/db.js";
 import { logger } from "./utils/logger.js";
 import roomRouter from "./routes/room.route.js";
 import adminRouter from "./routes/admin.routes.js";
+import userRouter from "./routes/user.routes.js";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(cookieParser());
 app.use("/api/auth", authRouter);
 app.use("/api/room", roomRouter);
 app.use("/api/statistics", adminRouter);
+app.use("/api/user", userRouter);
 
 app.use(errorHandler);
 
