@@ -3,8 +3,10 @@ import { User } from "./../models/User.js";
 
 export const verifyToken = async (req, res, next) => {
   try {
+    const authHeader = req.header("Authorization");
     const token =
-      req.cookies?.token || req.header("Authorization").replace("Bearer ", "");
+      req.cookies?.token ||
+      (authHeader ? authHeader.replace("Bearer ", "") : null);
 
     if (!token) {
       return res.status(401).json({

@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Home from "./pages/Home";
 import PublicRoute from "./utils/PublicRoute";
 import ProtectedRoute from "./utils/ProtectedRoute";
+import CreateRoom from "./pages/CreateRoom";
 
 const App = () => {
   return (
@@ -29,6 +30,14 @@ const App = () => {
         element={
           <ProtectedRoute>
             <Home />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/create-room"
+        element={
+          <ProtectedRoute>
+            <CreateRoom />
           </ProtectedRoute>
         }
       />
