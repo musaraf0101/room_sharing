@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import PublicRoute from "./utils/PublicRoute";
 import ProtectedRoute from "./utils/ProtectedRoute";
 import CreateRoom from "./pages/CreateRoom";
+import ViewRoom from "./pages/ViewRoom";
 
 const App = () => {
   return (
@@ -38,6 +39,14 @@ const App = () => {
         element={
           <ProtectedRoute>
             <CreateRoom />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/view-room/:id"
+        element={
+          <ProtectedRoute>
+            <ViewRoom />
           </ProtectedRoute>
         }
       />

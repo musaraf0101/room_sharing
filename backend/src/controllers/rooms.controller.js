@@ -25,6 +25,7 @@ export const getAllRoom = async (req, res) => {
       success: true,
       message: "all room data fetch success",
       data: rooms,
+      totalRooms,
       skip,
       limit,
       page,
