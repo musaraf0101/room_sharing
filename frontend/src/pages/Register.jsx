@@ -6,6 +6,7 @@ const Register = () => {
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
 
   const navigate = useNavigate();
 
@@ -17,6 +18,7 @@ const Register = () => {
         username: userName,
         email: email,
         password: password,
+        phoneNumber: phoneNumber,
       });
 
       navigate("/");
@@ -70,6 +72,18 @@ const Register = () => {
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
               required
+              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-400"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Phone Number
+            </label>
+            <input
+              type="text"
+              placeholder="Phone Number"
+              onChange={(e) => setPhoneNumber(e.target.value)}
               className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-400"
             />
           </div>

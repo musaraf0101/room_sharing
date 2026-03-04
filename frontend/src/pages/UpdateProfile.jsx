@@ -5,10 +5,11 @@ import { useAuth } from "../context/AuthContext";
 
 const UpdateProfile = () => {
   const { id } = useParams();
-  const { user } = useAuth();
+  const { user, login } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [userName, setUserName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const UpdateProfile = () => {
     if (user && (user.id === id || user.id === id.toString())) {
       setEmail(user.email || "");
       setUserName(user.name || "");
+      setPhoneNumber(user.phoneNumber || "");
     }
   }, [user, id]);
 
@@ -29,10 +31,16 @@ const UpdateProfile = () => {
         username: userName,
         email: email,
         password: password,
+        phoneNumber: phoneNumber,
       });
 
       // Update local storage and context
-      login({ ...user, name: userName, email: email });
+      login({
+        ...user,
+        name: userName,
+        email: email,
+        phoneNumber: phoneNumber,
+      });
 
       console.log("Profile updated successfully!");
       navigate("/home");
@@ -98,6 +106,19 @@ const UpdateProfile = () => {
               placeholder="New Password (optional)"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-400"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-slate-700 mb-1">
+              Phone Number
+            </label>
+            <input
+              type="text"
+              placeholder="Phone Number"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
               className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all placeholder:text-slate-400"
             />
           </div>
