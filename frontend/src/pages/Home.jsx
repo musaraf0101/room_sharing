@@ -184,7 +184,7 @@ const Home = () => {
               <div className="flex-1 flex flex-col justify-between min-w-0">
                 <div>
                   <h3 className="text-blue-700 font-bold text-lg line-clamp-1">
-                    {room.title}
+                    {room.title.charAt(0).toUpperCase() + room.title.slice(1)}
                   </h3>
 
                   <div className="text-gray-400 text-sm mt-1 line-clamp-1">
@@ -193,7 +193,7 @@ const Home = () => {
                   </div>
 
                   <div className="text-green-600 font-bold mt-2">
-                    Rs {room.price?.toLocaleString()} /month
+                    Rs {room.price?.toLocaleString()} /Month
                   </div>
                 </div>
 

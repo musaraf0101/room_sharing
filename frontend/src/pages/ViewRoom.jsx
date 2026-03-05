@@ -85,6 +85,14 @@ const ViewRoom = () => {
 
       <div className="max-w-5xl mx-auto px-6 mt-8">
         <div className="bg-white rounded-3xl overflow-hidden shadow-xl border border-gray-100">
+          <div className="pt-6 px-7 border-t border-gray-100">
+            <h2 className="text-4xl font-extrabold text-gray-900 mb-2 leading-tight">
+              {room.title}
+            </h2>
+            <p className="text-sm text-gray-700 font-semibold">
+              Posted on: {new Date(room.createdAt).toLocaleDateString()}
+            </p>
+          </div>
           {/* Image Gallery */}
           <div className="p-4 sm:p-6 bg-white border-b border-gray-100">
             {room.mediaIDs && room.mediaIDs.length > 0 ? (
@@ -202,50 +210,15 @@ const ViewRoom = () => {
                   </span>
                 </div>
 
-                <h2 className="text-4xl font-extrabold text-gray-900 mb-6 leading-tight">
-                  {room.title}
-                </h2>
-
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-lg font-bold text-gray-800 mb-3 flex items-center">
-                      <svg
-                        className="w-5 h-5 mr-2 text-blue-600"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M4 6h16M4 12h16M4 18h7"
-                        />
-                      </svg>
                       Description
                     </h3>
                     <p className="text-gray-600 leading-relaxed whitespace-pre-line text-lg">
-                      {room.description}
+                      {room.description.charAt(0).toUpperCase() +
+                        room.description.slice(1)}
                     </p>
-                  </div>
-
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-6 border-t border-gray-100">
-                    <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                      <p className="text-xs text-gray-400 uppercase font-bold tracking-widest mb-1">
-                        Type
-                      </p>
-                      <p className="font-semibold text-gray-700 capitalize">
-                        {room.roomType}
-                      </p>
-                    </div>
-                    <div className="p-4 bg-gray-50 rounded-2xl border border-gray-100">
-                      <p className="text-xs text-gray-400 uppercase font-bold tracking-widest mb-1">
-                        Added
-                      </p>
-                      <p className="font-semibold text-gray-700">
-                        {new Date(room.createdAt).toLocaleDateString()}
-                      </p>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -259,23 +232,17 @@ const ViewRoom = () => {
                     <span className="text-4xl font-black text-blue-600">
                       Rs. {room.price}
                     </span>
-                    <span className="text-gray-400 font-medium">/mo</span>
+                    <span className="text-gray-400 font-medium">/month</span>
                   </div>
                 </div>
 
                 <div className="space-y-4">
                   <button className="w-full py-5 bg-blue-600 text-white rounded-2xl font-bold text-lg hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-200 transition-all active:scale-[0.98]">
-                    Contact Host
+                    Contact
                   </button>
                   <button className="w-full py-4 bg-white text-blue-600 border-2 border-blue-100 rounded-2xl font-bold hover:bg-blue-50 transition-all">
                     Save to Favorites
                   </button>
-                </div>
-
-                <div className="mt-8 pt-6 border-t border-gray-50 text-center">
-                  <p className="text-sm text-gray-400 font-medium">
-                    Verified Listing by MyApp Team
-                  </p>
                 </div>
               </div>
             </div>
