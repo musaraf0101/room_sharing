@@ -11,7 +11,7 @@ export const getAllRoom = async (req, res) => {
     logger.info("get all room end point hit...");
 
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = Math.min(parseInt(req.query.limit) || 10, 50);
     const skip = (page - 1) * limit;
 
     const filter = {};
@@ -55,7 +55,6 @@ export const getAllRoom = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
@@ -78,7 +77,6 @@ export const getUserRooms = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
@@ -108,7 +106,6 @@ export const getRoomById = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
@@ -192,7 +189,6 @@ export const createRoom = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
@@ -315,7 +311,6 @@ export const updateRoom = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
@@ -358,7 +353,6 @@ export const deleteRoom = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };

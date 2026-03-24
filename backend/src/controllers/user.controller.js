@@ -65,7 +65,6 @@ export const updateProfile = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };

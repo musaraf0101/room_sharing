@@ -14,7 +14,7 @@ export const createRoomValidation = (data) => {
     suitableFor: joi.string().optional(),
     availableFrom: joi.string().optional(),
     houseRules: joi.string().optional(),
-    whatsapp: joi.string().required(),
+    whatsapp: joi.string().pattern(/^\+?[0-9]{7,15}$/).required(),
     title: joi.string().max(100).optional(),
     description: joi.string().optional(),
   });
@@ -35,7 +35,7 @@ export const updateRoomValidation = (data) => {
     suitableFor: joi.string().optional(),
     availableFrom: joi.string().optional(),
     houseRules: joi.string().optional(),
-    whatsapp: joi.string().optional(),
+    whatsapp: joi.string().pattern(/^\+?[0-9]{7,15}$/).optional(),
     title: joi.string().max(100).optional(),
     description: joi.string().optional(),
   });

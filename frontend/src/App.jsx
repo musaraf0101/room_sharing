@@ -12,6 +12,8 @@ import UpdateRoom from "./pages/UpdateRoom";
 import PostRequest from "./pages/PostRequest";
 import MyRequests from "./pages/MyRequests";
 import ViewRequest from "./pages/ViewRequest";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
@@ -86,6 +88,8 @@ const App = () => {
           }
         />
         <Route path="/view-request/:id" element={<ViewRequest />} />
+        <Route path="/forgot-password" element={<PublicRoute><ForgotPassword /></PublicRoute>} />
+        <Route path="/reset-password" element={<PublicRoute><ResetPassword /></PublicRoute>} />
       </Routes>
     </>
   );

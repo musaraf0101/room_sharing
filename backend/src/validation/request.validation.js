@@ -11,7 +11,7 @@ export const createRequestValidation = (data) => {
     mealsNeeded: joi.boolean().optional(),
     duration: joi.string().optional(),
     bio: joi.string().optional(),
-    whatsapp: joi.string().required(),
+    whatsapp: joi.string().pattern(/^\+?[0-9]{7,15}$/).required(),
   });
   return schema.validate(data);
 };
@@ -27,7 +27,7 @@ export const updateRequestValidation = (data) => {
     mealsNeeded: joi.boolean().optional(),
     duration: joi.string().optional(),
     bio: joi.string().optional(),
-    whatsapp: joi.string().optional(),
+    whatsapp: joi.string().pattern(/^\+?[0-9]{7,15}$/).optional(),
   });
   return schema.validate(data);
 };

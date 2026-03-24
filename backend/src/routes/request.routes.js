@@ -1,6 +1,15 @@
 import express from "express";
+import rateLimit from "express-rate-limit";
 import { verifyToken } from "./../middleware/verifyToken.js";
 import { authorizedRoles } from "./../middleware/verifyRole.js";
+
+const createRequestLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 10,
+  message: { success: false, message: "Too many requests created, please try again later." },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 import {
   createRequest,
   deleteRequest,
@@ -24,6 +33,7 @@ requestRouter.post(
   "/",
   verifyToken,
   authorizedRoles("admin", "user"),
+  createRequestLimiter,
   createRequest,
 );
 requestRouter.put(

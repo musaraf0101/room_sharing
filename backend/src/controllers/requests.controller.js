@@ -10,7 +10,7 @@ export const getAllRequests = async (req, res) => {
     logger.info("get all requests end point hit...");
 
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 10;
+    const limit = Math.min(parseInt(req.query.limit) || 10, 50);
     const skip = (page - 1) * limit;
 
     const filter = {};
@@ -48,7 +48,6 @@ export const getAllRequests = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
@@ -71,7 +70,6 @@ export const getUserRequests = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
@@ -100,7 +98,6 @@ export const getRequestById = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
@@ -156,7 +153,6 @@ export const createRequest = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
@@ -227,7 +223,6 @@ export const updateRequest = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
@@ -264,7 +259,6 @@ export const deleteRequest = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };

@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import { User } from "../models/User.js";
 import { logger } from "../utils/logger.js";
 import {
@@ -6,6 +7,7 @@ import {
   validateRegistration,
 } from "../validation/auth.validation.js";
 import { generateToken } from "./../utils/token.js";
+import { sendPasswordResetEmail } from "../utils/email.js";
 
 export const register = async (req, res) => {
   try {
@@ -137,5 +139,89 @@ export const logout = async (req, res) => {
       success: false,
       message: "internal server error",
     });
+  }
+};
+
+export const forgotPassword = async (req, res) => {
+  try {
+    logger.info("forgot password end point hit....");
+
+    const { email } = req.body;
+
+    if (!email) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Email is required" });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (user) {
+      const resetToken = crypto.randomBytes(32).toString("hex");
+      const hashedToken = crypto
+        .createHash("sha256")
+        .update(resetToken)
+        .digest("hex");
+
+      user.resetPasswordToken = hashedToken;
+      user.resetPasswordExpiry = new Date(Date.now() + 15 * 60 * 1000);
+      await user.save();
+
+      await sendPasswordResetEmail(user.email, resetToken);
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "If that email exists, a reset link has been sent.",
+    });
+  } catch (error) {
+    logger.error(error.message);
+    res.status(500).json({ success: false, message: "internal server error" });
+  }
+};
+
+export const resetPassword = async (req, res) => {
+  try {
+    logger.info("reset password end point hit....");
+
+    const { token } = req.params;
+    const { password } = req.body;
+
+    if (!password || password.length < 8) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Password must be at least 8 characters",
+        });
+    }
+
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+    const user = await User.findOne({
+      resetPasswordToken: hashedToken,
+      resetPasswordExpiry: { $gt: new Date() },
+    }).select("+resetPasswordToken +resetPasswordExpiry");
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Invalid or expired reset link" });
+    }
+
+    user.password = await bcrypt.hash(password, 10);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpiry = undefined;
+    await user.save();
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Password reset successful. You can now log in.",
+      });
+  } catch (error) {
+    logger.error(error.message);
+    res.status(500).json({ success: false, message: "internal server error" });
   }
 };

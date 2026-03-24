@@ -17,7 +17,6 @@ const Login = () => {
     setLoading(true);
     try {
       const res = await api.post("/auth/login", { email, password });
-      localStorage.setItem("token", res.data.token);
       login(res.data.data);
       navigate("/home");
     } catch (error) {
@@ -142,6 +141,12 @@ const Login = () => {
                 <label className="text-sm font-semibold text-slate-700">
                   Password
                 </label>
+                <Link
+                  to="/forgot-password"
+                  className="text-xs text-blue-600 hover:text-blue-700 font-medium"
+                >
+                  Forgot password?
+                </Link>
               </div>
               <input
                 type="password"
