@@ -59,7 +59,6 @@ export const register = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
@@ -82,18 +81,18 @@ export const login = async (req, res) => {
     const user = await User.findOne({ email }).select("+password");
 
     if (!user) {
-      return res.status(404).json({
+      return res.status(401).json({
         success: false,
-        message: "user not found!.. please register",
+        message: "Invalid email or password",
       });
     }
 
     const isPassword = await bcrypt.compare(password, user.password);
 
     if (!isPassword) {
-      return res.status(400).json({
+      return res.status(401).json({
         success: false,
-        message: "invalite credentials",
+        message: "Invalid email or password",
       });
     }
 
@@ -101,15 +100,14 @@ export const login = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
-      maxAge: 60 * 60 * 1000,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
     res.status(200).json({
       success: true,
       message: "login success",
-      token,
       data: {
         id: user._id,
         name: user.username,
@@ -121,7 +119,6 @@ export const login = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
@@ -139,7 +136,6 @@ export const logout = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "internal server error",
-      error: error.message,
     });
   }
 };
