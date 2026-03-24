@@ -13,19 +13,14 @@ import { authorizedRoles } from "./../middleware/verifyRole.js";
 
 const roomRouter = express.Router();
 
-roomRouter.get("/", verifyToken, authorizedRoles("admin", "user"), getAllRoom);
+roomRouter.get("/", getAllRoom);
 roomRouter.get(
   "/my-rooms",
   verifyToken,
   authorizedRoles("admin", "user"),
   getUserRooms,
 );
-roomRouter.get(
-  "/:id",
-  verifyToken,
-  authorizedRoles("admin", "user"),
-  getRoomById,
-);
+roomRouter.get("/:id", getRoomById);
 roomRouter.post(
   "/",
   verifyToken,

@@ -10,7 +10,16 @@ const roomSchema = new mongoose.Schema(
     roomType: {
       type: String,
       required: true,
-      enum: ["sharing", "rental"],
+      enum: [
+        "single",
+        "sharing",
+        "annex",
+        "boarding",
+        "apartment",
+        "full_house",
+        "short_stay",
+        "rental",
+      ],
     },
     location: {
       type: String,
@@ -19,6 +28,35 @@ const roomSchema = new mongoose.Schema(
     price: {
       type: Number,
       required: true,
+    },
+    securityDeposit: {
+      type: Number,
+      default: 0,
+    },
+    utilities: {
+      water: { type: Boolean, default: false },
+      electricity: { type: Boolean, default: false },
+      wifi: { type: Boolean, default: false },
+      meals: { type: Boolean, default: false },
+    },
+    genderPreference: {
+      type: String,
+      enum: ["male", "female", "any"],
+      default: "any",
+    },
+    suitableFor: {
+      type: String,
+      enum: ["students", "professionals", "families", "anyone"],
+      default: "anyone",
+    },
+    availableFrom: {
+      type: Date,
+    },
+    houseRules: {
+      type: String,
+    },
+    whatsapp: {
+      type: String,
     },
     title: {
       type: String,
@@ -42,6 +80,6 @@ const roomSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-roomSchema.index({ createdAt: 1 }, { expireAfterSeconds: 30 * 24 * 60 * 60 });
+roomSchema.index({ createdAt: 1 });
 
 export const Room = mongoose.model("Room", roomSchema);

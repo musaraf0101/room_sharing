@@ -9,6 +9,9 @@ import ViewRoom from "./pages/ViewRoom";
 import UpdateProfile from "./pages/UpdateProfile";
 import MyRooms from "./pages/MyRooms";
 import UpdateRoom from "./pages/UpdateRoom";
+import PostRequest from "./pages/PostRequest";
+import MyRequests from "./pages/MyRequests";
+import ViewRequest from "./pages/ViewRequest";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
@@ -32,14 +35,7 @@ const App = () => {
             </PublicRoute>
           }
         />
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/home" element={<Home />} />
         <Route
           path="/create-room"
           element={
@@ -48,14 +44,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/view-room/:id"
-          element={
-            <ProtectedRoute>
-              <ViewRoom />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/view-room/:id" element={<ViewRoom />} />
         <Route
           path="/my-rooms"
           element={
@@ -80,6 +69,23 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/post-request"
+          element={
+            <ProtectedRoute>
+              <PostRequest />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/my-requests"
+          element={
+            <ProtectedRoute>
+              <MyRequests />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/view-request/:id" element={<ViewRequest />} />
       </Routes>
     </>
   );

@@ -8,6 +8,7 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import { DBConnection } from "./config/db.js";
 import { logger } from "./utils/logger.js";
 import roomRouter from "./routes/room.route.js";
+import requestRouter from "./routes/request.routes.js";
 import adminRouter from "./routes/admin.routes.js";
 import userRouter from "./routes/user.routes.js";
 
@@ -27,6 +28,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
 app.use("/api/room", roomRouter);
+app.use("/api/request", requestRouter);
 app.use("/api/statistics", adminRouter);
 app.use("/api/user", userRouter);
 
