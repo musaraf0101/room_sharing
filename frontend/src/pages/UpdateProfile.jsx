@@ -53,7 +53,7 @@ const UpdateProfile = () => {
       <div className="w-full max-w-lg">
         {/* Back */}
         <button
-          onClick={() => navigate("/home")}
+          onClick={() => navigate(-1)}
           className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 font-medium mb-8 transition text-sm"
         >
           <ArrowLeft size={16} />

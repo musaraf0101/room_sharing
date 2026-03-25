@@ -58,7 +58,7 @@ const MyRequests = () => {
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
-              onClick={() => navigate("/home")}
+              onClick={() => navigate(-1)}
               className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition text-slate-600 dark:text-slate-300"
             >
               <ArrowLeft size={18} />

@@ -166,8 +166,7 @@ const PostRequest = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-  const handleBack = () =>
-    window.history.state?.idx > 0 ? navigate(-1) : navigate("/home");
+  const handleBack = () => navigate(-1);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

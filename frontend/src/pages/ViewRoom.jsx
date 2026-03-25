@@ -61,7 +61,7 @@ const ViewRoom = () => {
             {error || "This listing may have expired."}
           </p>
           <button
-            onClick={() => navigate("/home")}
+            onClick={() => navigate(-1)}
             className="w-full py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition"
           >
             Back to Listings
@@ -91,7 +91,7 @@ const ViewRoom = () => {
       {/* Navbar */}
       <nav className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-5 py-3.5 flex items-center justify-between sticky top-0 z-50">
         <button
-          onClick={() => navigate("/home")}
+          onClick={() => navigate(-1)}
           className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 transition text-sm font-semibold"
         >
           <ArrowLeft size={16} /> Back to listings

@@ -43,8 +43,7 @@ const ViewRequest = () => {
     })();
   }, [id]);
 
-  const handleBack = () =>
-    window.history.state?.idx > 0 ? navigate(-1) : navigate("/home");
+  const handleBack = () => navigate(-1);
 
   if (loading)
     return (
