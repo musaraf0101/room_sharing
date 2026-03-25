@@ -49,18 +49,18 @@ const UpdateProfile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex flex-col items-center justify-center px-4 py-12">
       <div className="w-full max-w-lg">
         {/* Back */}
         <button
           onClick={() => navigate("/home")}
-          className="flex items-center gap-2 text-slate-500 hover:text-blue-600 font-medium mb-8 transition text-sm"
+          className="flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 font-medium mb-8 transition text-sm"
         >
           <ArrowLeft size={16} />
           Back to home
         </button>
 
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
           {/* Header */}
           <div className="bg-linear-to-r from-blue-600 to-blue-700 px-8 py-8 text-white">
             <div className="flex items-center gap-4">
@@ -77,7 +77,7 @@ const UpdateProfile = () => {
           {/* Form */}
           <div className="p-8">
             {error && (
-              <div className="mb-6 flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium">
+              <div className="mb-6 flex items-center gap-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl text-sm font-medium">
                 <svg
                   className="w-4 h-4 shrink-0"
                   fill="currentColor"
@@ -94,7 +94,7 @@ const UpdateProfile = () => {
             )}
 
             {success && (
-              <div className="mb-6 flex items-center gap-3 bg-emerald-50 border border-emerald-200 text-emerald-700 px-4 py-3 rounded-xl text-sm font-medium">
+              <div className="mb-6 flex items-center gap-3 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-900/30 text-emerald-700 dark:text-emerald-400 px-4 py-3 rounded-xl text-sm font-medium">
                 <svg
                   className="w-4 h-4 shrink-0"
                   fill="currentColor"
@@ -112,7 +112,7 @@ const UpdateProfile = () => {
 
             <form onSubmit={handleUpdate} className="space-y-5">
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
                   Full Name
                 </label>
                 <input
@@ -120,12 +120,12 @@ const UpdateProfile = () => {
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                   required
-                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-slate-900"
+                  className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-slate-900 dark:text-white"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
                   Email Address
                 </label>
                 <input
@@ -133,12 +133,12 @@ const UpdateProfile = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-slate-900"
+                  className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-slate-900 dark:text-white"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
                   New Password{" "}
                   <span className="text-slate-400 font-normal">
                     (leave blank to keep current)
@@ -149,12 +149,12 @@ const UpdateProfile = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 text-slate-900"
+                  className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+                <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
                   Phone Number
                 </label>
                 <input
@@ -162,7 +162,7 @@ const UpdateProfile = () => {
                   value={phoneNumber}
                   onChange={(e) => setPhoneNumber(e.target.value)}
                   placeholder="07X XXXXXXX"
-                  className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 text-slate-900"
+                  className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
                 />
               </div>
 

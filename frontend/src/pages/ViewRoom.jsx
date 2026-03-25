@@ -39,23 +39,25 @@ const ViewRoom = () => {
 
   if (loading)
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-500 font-medium">Loading room details...</p>
+          <p className="text-slate-500 dark:text-slate-400 font-medium">
+            Loading room details...
+          </p>
         </div>
       </div>
     );
 
   if (error || !room)
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-10 max-w-sm w-full text-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-10 max-w-sm w-full text-center">
           <div className="text-5xl mb-4">⚠️</div>
-          <h2 className="text-xl font-black text-slate-800 mb-2">
+          <h2 className="text-xl font-black text-slate-800 dark:text-white mb-2">
             Room not found
           </h2>
-          <p className="text-slate-500 text-sm mb-6">
+          <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">
             {error || "This listing may have expired."}
           </p>
           <button
@@ -85,12 +87,12 @@ const ViewRoom = () => {
     : null;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Navbar */}
-      <nav className="bg-white border-b border-slate-200 px-5 py-3.5 flex items-center justify-between sticky top-0 z-50">
+      <nav className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-5 py-3.5 flex items-center justify-between sticky top-0 z-50">
         <button
           onClick={() => navigate("/home")}
-          className="flex items-center gap-2 text-slate-600 hover:text-blue-600 transition text-sm font-semibold"
+          className="flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-blue-600 transition text-sm font-semibold"
         >
           <ArrowLeft size={16} /> Back to listings
         </button>
@@ -102,10 +104,10 @@ const ViewRoom = () => {
           {/* ── LEFT (main content) ── */}
           <div className="lg:col-span-2 space-y-6">
             {/* Gallery */}
-            <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
               {room.mediaIDs?.length > 0 ? (
                 <div>
-                  <div className="relative aspect-video bg-slate-100 overflow-hidden">
+                  <div className="relative aspect-video bg-slate-100 dark:bg-slate-700 overflow-hidden">
                     <img
                       src={room.mediaIDs[currentImageIndex]?.url}
                       alt={room.title}
@@ -134,37 +136,39 @@ const ViewRoom = () => {
                   )}
                 </div>
               ) : (
-                <div className="aspect-video flex items-center justify-center bg-slate-50">
-                  <p className="text-sm font-medium text-slate-300">No photos uploaded</p>
+                <div className="aspect-video flex items-center justify-center bg-slate-50 dark:bg-slate-900">
+                  <p className="text-sm font-medium text-slate-300 dark:text-slate-600">
+                    No photos uploaded
+                  </p>
                 </div>
               )}
             </div>
 
             {/* Title & Meta */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
               <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700">
+                <span className="px-3 py-1 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">
                   {ROOM_TYPE_LABELS[room.roomType] || room.roomType}
                 </span>
                 {room.genderPreference && room.genderPreference !== "any" && (
-                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-pink-50 text-pink-600">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-pink-50 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400">
                     {room.genderPreference} only
                   </span>
                 )}
                 {room.suitableFor && room.suitableFor !== "anyone" && (
-                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700">
+                  <span className="px-3 py-1 rounded-full text-xs font-bold bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">
                     For {room.suitableFor}
                   </span>
                 )}
               </div>
 
-              <h1 className="text-2xl font-black text-slate-900 mb-3 leading-tight">
+              <h1 className="text-2xl font-black text-slate-900 dark:text-white mb-3 leading-tight">
                 {room.title
                   ? room.title.charAt(0).toUpperCase() + room.title.slice(1)
                   : ROOM_TYPE_LABELS[room.roomType]}
               </h1>
 
-              <div className="flex flex-wrap gap-4 text-sm text-slate-500">
+              <div className="flex flex-wrap gap-4 text-sm text-slate-500 dark:text-slate-400">
                 <span className="flex items-center gap-1.5">
                   <MapPin size={14} className="text-blue-500" /> {room.location}
                 </span>
@@ -177,7 +181,7 @@ const ViewRoom = () => {
                     })}
                   </span>
                 )}
-                <span className="text-slate-300">
+                <span className="text-slate-300 dark:text-slate-600">
                   Listed {new Date(room.createdAt).toLocaleDateString()}
                 </span>
               </div>
@@ -185,11 +189,11 @@ const ViewRoom = () => {
 
             {/* Description */}
             {room.description && (
-              <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                <h2 className="font-black text-slate-900 mb-3">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
+                <h2 className="font-black text-slate-900 dark:text-white mb-3">
                   About this room
                 </h2>
-                <p className="text-slate-600 leading-relaxed whitespace-pre-line text-sm">
+                <p className="text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line text-sm">
                   {room.description.charAt(0).toUpperCase() +
                     room.description.slice(1)}
                 </p>
@@ -198,8 +202,8 @@ const ViewRoom = () => {
 
             {/* What's Included */}
             {included.length > 0 && (
-              <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                <h2 className="font-black text-slate-900 mb-4">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
+                <h2 className="font-black text-slate-900 dark:text-white mb-4">
                   What's included in rent
                 </h2>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -213,10 +217,10 @@ const ViewRoom = () => {
                     return (
                       <div
                         key={item}
-                        className="flex flex-col items-center gap-2 p-3 bg-emerald-50 rounded-xl border border-emerald-100"
+                        className="flex flex-col items-center gap-2 p-3 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl border border-emerald-100 dark:border-emerald-900/30"
                       >
                         <span className="text-2xl">{icons[item]}</span>
-                        <span className="text-xs font-bold text-emerald-700">
+                        <span className="text-xs font-bold text-emerald-700 dark:text-emerald-400">
                           {item}
                         </span>
                       </div>
@@ -228,11 +232,11 @@ const ViewRoom = () => {
 
             {/* House Rules */}
             {room.houseRules && (
-              <div className="bg-white rounded-2xl border border-slate-200 p-6">
-                <h2 className="font-black text-slate-900 mb-3 flex items-center gap-2">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6">
+                <h2 className="font-black text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                   <Shield size={16} className="text-amber-500" /> House Rules
                 </h2>
-                <p className="text-slate-600 text-sm leading-relaxed whitespace-pre-line">
+                <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed whitespace-pre-line">
                   {room.houseRules}
                 </p>
               </div>
@@ -241,22 +245,26 @@ const ViewRoom = () => {
 
           {/* ── RIGHT (price card) ── */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sticky top-24">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm p-6 sticky top-24">
               {/* Price breakdown */}
               <div className="mb-6">
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3">
+                <p className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3">
                   Pricing
                 </p>
                 <div className="space-y-2.5">
                   <div className="flex justify-between items-center text-sm">
-                    <span className="text-slate-500">Monthly rent</span>
-                    <span className="font-bold text-slate-900">
+                    <span className="text-slate-500 dark:text-slate-400">
+                      Monthly rent
+                    </span>
+                    <span className="font-bold text-slate-900 dark:text-white">
                       Rs {room.price?.toLocaleString()}
                     </span>
                   </div>
                   {included.length > 0 && (
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-slate-500">Utilities</span>
+                      <span className="text-slate-500 dark:text-slate-400">
+                        Utilities
+                      </span>
                       <span className="font-bold text-emerald-600">
                         Included ✓
                       </span>
@@ -264,15 +272,17 @@ const ViewRoom = () => {
                   )}
                   {room.securityDeposit > 0 && (
                     <div className="flex justify-between items-center text-sm">
-                      <span className="text-slate-500">Security deposit</span>
-                      <span className="font-bold text-slate-900">
+                      <span className="text-slate-500 dark:text-slate-400">
+                        Security deposit
+                      </span>
+                      <span className="font-bold text-slate-900 dark:text-white">
                         Rs {room.securityDeposit?.toLocaleString()}
                       </span>
                     </div>
                   )}
-                  <div className="h-px bg-slate-100" />
+                  <div className="h-px bg-slate-100 dark:bg-slate-700" />
                   <div className="flex justify-between items-center">
-                    <span className="font-bold text-slate-700">
+                    <span className="font-bold text-slate-700 dark:text-slate-200">
                       Total / month
                     </span>
                     <span className="text-2xl font-black text-blue-600">
@@ -308,7 +318,7 @@ const ViewRoom = () => {
                 {!user && (
                   <button
                     onClick={() => navigate("/")}
-                    className="w-full py-3 border border-slate-200 text-slate-600 hover:bg-slate-50 rounded-xl text-sm font-semibold transition"
+                    className="w-full py-3 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-xl text-sm font-semibold transition"
                   >
                     Sign in to save listing
                   </button>
@@ -316,7 +326,7 @@ const ViewRoom = () => {
               </div>
 
               {/* Trust note */}
-              <p className="text-xs text-slate-400 text-center mt-4">
+              <p className="text-xs text-slate-400 dark:text-slate-500 text-center mt-4">
                 Contact directly via WhatsApp — no fees, no middlemen.
               </p>
             </div>

@@ -9,29 +9,128 @@ import {
   SlidersHorizontal,
   X,
   ChevronDown,
+  Sun,
+  Moon,
 } from "lucide-react";
+import { useTheme } from "../context/ThemeContext";
 
 const SL_CITIES = [
-  "Colombo","Dehiwala-Mount Lavinia","Sri Jayawardenepura Kotte","Moratuwa",
-  "Negombo","Kalutara","Panadura","Homagama","Kaduwela","Maharagama",
-  "Kolonnawa","Kesbewa","Gampaha","Ja-Ela","Wattala","Ragama","Kandana",
-  "Minuwangoda","Divulapitiya","Mirigama","Beruwala","Aluthgama","Matugama",
-  "Bandaragama","Kandy","Matale","Nuwara Eliya","Gampola","Nawalapitiya",
-  "Dambulla","Sigiriya","Hatton","Dikoya","Talawakele","Haputale",
-  "Bandarawela","Badulla","Mahiyanganaya","Moneragala","Welimada","Bibile",
-  "Galle","Matara","Hambantota","Weligama","Unawatuna","Hikkaduwa",
-  "Ambalangoda","Tangalle","Tissamaharama","Dickwella","Koggala","Mirissa",
-  "Deniyaya","Akuressa","Elpitiya","Jaffna","Kilinochchi","Mannar",
-  "Vavuniya","Mullaitivu","Chavakachcheri","Point Pedro","Nelliady","Kayts",
-  "Trincomalee","Batticaloa","Ampara","Kalmunai","Sammanthurai","Akkaraipattu",
-  "Kattankudy","Valaichchenai","Eravur","Chenkaladi","Kurunegala","Puttalam",
-  "Kuliyapitiya","Narammala","Wariyapola","Chilaw","Wennappuwa","Marawila",
-  "Nikaweratiya","Maho","Alawwa","Pannala","Nattandiya","Anuradhapura",
-  "Polonnaruwa","Kekirawa","Medawachchiya","Tambuttegama","Eppawala",
-  "Mihintale","Hingurakgoda","Kaduruwela","Medirigiriya","Wellawaya",
-  "Diyatalawa","Passara","Ella","Hali-Ela","Ratnapura","Kegalle","Balangoda",
-  "Embilipitiya","Avissawella","Ruwanwella","Mawanella","Rambukkana",
-  "Warakapola","Eheliyagoda","Kuruwita","Kahawatta","Pelmadulla",
+  "Colombo",
+  "Dehiwala-Mount Lavinia",
+  "Sri Jayawardenepura Kotte",
+  "Moratuwa",
+  "Negombo",
+  "Kalutara",
+  "Panadura",
+  "Homagama",
+  "Kaduwela",
+  "Maharagama",
+  "Kolonnawa",
+  "Kesbewa",
+  "Gampaha",
+  "Ja-Ela",
+  "Wattala",
+  "Ragama",
+  "Kandana",
+  "Minuwangoda",
+  "Divulapitiya",
+  "Mirigama",
+  "Beruwala",
+  "Aluthgama",
+  "Matugama",
+  "Bandaragama",
+  "Kandy",
+  "Matale",
+  "Nuwara Eliya",
+  "Gampola",
+  "Nawalapitiya",
+  "Dambulla",
+  "Sigiriya",
+  "Hatton",
+  "Dikoya",
+  "Talawakele",
+  "Haputale",
+  "Bandarawela",
+  "Badulla",
+  "Mahiyanganaya",
+  "Moneragala",
+  "Welimada",
+  "Bibile",
+  "Galle",
+  "Matara",
+  "Hambantota",
+  "Weligama",
+  "Unawatuna",
+  "Hikkaduwa",
+  "Ambalangoda",
+  "Tangalle",
+  "Tissamaharama",
+  "Dickwella",
+  "Koggala",
+  "Mirissa",
+  "Deniyaya",
+  "Akuressa",
+  "Elpitiya",
+  "Jaffna",
+  "Kilinochchi",
+  "Mannar",
+  "Vavuniya",
+  "Mullaitivu",
+  "Chavakachcheri",
+  "Point Pedro",
+  "Nelliady",
+  "Kayts",
+  "Trincomalee",
+  "Batticaloa",
+  "Ampara",
+  "Kalmunai",
+  "Sammanthurai",
+  "Akkaraipattu",
+  "Kattankudy",
+  "Valaichchenai",
+  "Eravur",
+  "Chenkaladi",
+  "Kurunegala",
+  "Puttalam",
+  "Kuliyapitiya",
+  "Narammala",
+  "Wariyapola",
+  "Chilaw",
+  "Wennappuwa",
+  "Marawila",
+  "Nikaweratiya",
+  "Maho",
+  "Alawwa",
+  "Pannala",
+  "Nattandiya",
+  "Anuradhapura",
+  "Polonnaruwa",
+  "Kekirawa",
+  "Medawachchiya",
+  "Tambuttegama",
+  "Eppawala",
+  "Mihintale",
+  "Hingurakgoda",
+  "Kaduruwela",
+  "Medirigiriya",
+  "Wellawaya",
+  "Diyatalawa",
+  "Passara",
+  "Ella",
+  "Hali-Ela",
+  "Ratnapura",
+  "Kegalle",
+  "Balangoda",
+  "Embilipitiya",
+  "Avissawella",
+  "Ruwanwella",
+  "Mawanella",
+  "Rambukkana",
+  "Warakapola",
+  "Eheliyagoda",
+  "Kuruwita",
+  "Kahawatta",
+  "Pelmadulla",
 ];
 
 const ROOM_TYPE_LABELS = {
@@ -55,14 +154,14 @@ const WHO_LABELS = {
 const Input = ({ ...props }) => (
   <input
     {...props}
-    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 placeholder:text-slate-400"
+    className="w-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"
   />
 );
 
 const Select = ({ children, ...props }) => (
   <select
     {...props}
-    className="w-full bg-white border border-slate-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800"
+    className="w-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-800 dark:text-white"
   >
     {children}
   </select>
@@ -70,12 +169,16 @@ const Select = ({ children, ...props }) => (
 
 export default function Home() {
   const { logout, user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const menuRef = useRef();
   const postMenuRef = useRef();
 
   const [activeTab, setActiveTab] = useState("rooms");
   const [searchCity, setSearchCity] = useState("");
+  const [cityInput, setCityInput] = useState("");
+  const [showCitySuggestions, setShowCitySuggestions] = useState(false);
+  const cityRef = useRef();
   const [showFilters, setShowFilters] = useState(false);
   const [showPostMenu, setShowPostMenu] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
@@ -175,6 +278,8 @@ export default function Home() {
         setShowProfileMenu(false);
       if (postMenuRef.current && !postMenuRef.current.contains(e.target))
         setShowPostMenu(false);
+      if (cityRef.current && !cityRef.current.contains(e.target))
+        setShowCitySuggestions(false);
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
@@ -205,6 +310,7 @@ export default function Home() {
     setWhoAmIFilter("");
     setDurationFilter("");
     setSearchCity("");
+    setCityInput("");
   };
 
   const handleLogout = async () => {
@@ -240,11 +346,11 @@ export default function Home() {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
           disabled={page === 1}
-          className="px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40 transition"
+          className="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-40 transition"
         >
           ← Prev
         </button>
-        <span className="text-sm text-slate-500 font-medium">
+        <span className="text-sm text-slate-500 dark:text-slate-400 font-medium">
           {page} / {totalPages}
         </span>
         <button
@@ -253,7 +359,7 @@ export default function Home() {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
           disabled={page === totalPages}
-          className="px-5 py-2.5 rounded-xl border border-slate-200 bg-white text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-40 transition"
+          className="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-40 transition"
         >
           Next →
         </button>
@@ -261,15 +367,15 @@ export default function Home() {
     ) : null;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* ── NAVBAR ── */}
-      <nav className="w-full bg-white border-b border-slate-200 px-5 py-3 flex items-center gap-4 sticky top-0 z-50">
+      <nav className="w-full bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-5 py-3 flex items-center gap-4 sticky top-0 z-50">
         {/* Logo */}
         <button
           onClick={() => navigate("/home")}
           className="flex items-center gap-2 shrink-0"
         >
-          <span className="text-lg font-black text-slate-900 hidden sm:block">
+          <span className="text-lg font-black text-slate-900 dark:text-white hidden sm:block">
             RoomLK
           </span>
         </button>
@@ -279,7 +385,7 @@ export default function Home() {
           onSubmit={handleSearch}
           className="flex-1 flex gap-2 max-w-lg mx-auto"
         >
-          <div className="relative flex-1">
+          <div className="relative flex-1" ref={cityRef}>
             <svg
               className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none"
               fill="none"
@@ -293,16 +399,45 @@ export default function Home() {
                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
               />
             </svg>
-            <select
-              value={searchCity}
-              onChange={(e) => setSearchCity(e.target.value)}
-              className="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 text-slate-800"
-            >
-              <option value="">All cities</option>
-              {SL_CITIES.map((city) => (
-                <option key={city} value={city}>{city}</option>
-              ))}
-            </select>
+            <input
+              type="text"
+              value={cityInput}
+              onChange={(e) => {
+                setCityInput(e.target.value);
+                setSearchCity("");
+                setShowCitySuggestions(true);
+              }}
+              onFocus={() => setShowCitySuggestions(true)}
+              placeholder="Search city..."
+              className="w-full pl-9 pr-4 py-2.5 border border-slate-200 dark:border-slate-600 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-slate-50 dark:bg-slate-700 text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"
+            />
+            {showCitySuggestions && cityInput.length > 0 && (
+              <ul className="absolute z-50 top-full mt-1 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-xl shadow-lg max-h-52 overflow-y-auto">
+                {SL_CITIES.filter((c) =>
+                  c.toLowerCase().includes(cityInput.toLowerCase()),
+                ).length === 0 ? (
+                  <li className="px-4 py-2.5 text-sm text-slate-400 dark:text-slate-500">
+                    No cities found
+                  </li>
+                ) : (
+                  SL_CITIES.filter((c) =>
+                    c.toLowerCase().includes(cityInput.toLowerCase()),
+                  ).map((city) => (
+                    <li
+                      key={city}
+                      onMouseDown={() => {
+                        setSearchCity(city);
+                        setCityInput(city);
+                        setShowCitySuggestions(false);
+                      }}
+                      className="px-4 py-2.5 text-sm text-slate-700 dark:text-slate-200 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-700 dark:hover:text-blue-400 cursor-pointer"
+                    >
+                      {city}
+                    </li>
+                  ))
+                )}
+              </ul>
+            )}
           </div>
           <button
             type="submit"
@@ -314,10 +449,21 @@ export default function Home() {
 
         {/* Right actions */}
         <div className="flex items-center gap-2 shrink-0">
+          {/* Theme toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition"
+            title={
+              theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+            }
+          >
+            {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+          </button>
+
           {/* Filter */}
           <button
             onClick={() => setShowFilters((p) => !p)}
-            className={`p-2.5 rounded-xl border transition text-sm font-medium flex items-center gap-1.5 ${showFilters || hasFilters ? "bg-blue-600 border-blue-600 text-white" : "border-slate-200 text-slate-600 hover:bg-slate-50"}`}
+            className={`p-2.5 rounded-xl border transition text-sm font-medium flex items-center gap-1.5 ${showFilters || hasFilters ? "bg-blue-600 border-blue-600 text-white" : "border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700"}`}
           >
             <SlidersHorizontal size={15} />
             <span className="hidden md:block">Filters</span>
@@ -335,10 +481,10 @@ export default function Home() {
               + Post <ChevronDown size={14} />
             </button>
             {showPostMenu && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden z-50">
+              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden z-50">
                 <button
                   onClick={() => goPost("/create-room")}
-                  className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 transition"
+                  className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition"
                 >
                   <div>
                     <div className="font-semibold">Post a Room</div>
@@ -350,11 +496,13 @@ export default function Home() {
                 <div className="h-px bg-slate-100" />
                 <button
                   onClick={() => goPost("/post-request")}
-                  className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-slate-700 hover:bg-slate-50 transition"
+                  className="flex items-center gap-3 w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition"
                 >
                   <div>
                     <div className="font-semibold">Post a Request</div>
-                    <div className="text-xs text-slate-400">Find a room</div>
+                    <div className="text-xs text-slate-400 dark:text-slate-500">
+                      Find a room
+                    </div>
                   </div>
                 </button>
               </div>
@@ -371,12 +519,12 @@ export default function Home() {
                 {user?.name?.charAt(0).toUpperCase() || "U"}
               </button>
               {showProfileMenu && (
-                <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden z-50">
-                  <div className="px-4 py-3 border-b border-slate-100">
-                    <p className="font-semibold text-sm text-slate-900">
+                <div className="absolute right-0 mt-2 w-52 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 overflow-hidden z-50">
+                  <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-700">
+                    <p className="font-semibold text-sm text-slate-900 dark:text-white">
                       {user.name}
                     </p>
-                    <p className="text-xs text-slate-400 truncate">
+                    <p className="text-xs text-slate-400 dark:text-slate-500 truncate">
                       {user.email}
                     </p>
                   </div>
@@ -403,18 +551,18 @@ export default function Home() {
                         action();
                         setShowProfileMenu(false);
                       }}
-                      className="flex items-center gap-2.5 w-full text-left px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 transition"
+                      className="flex items-center gap-2.5 w-full text-left px-4 py-2.5 text-sm text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-700 transition"
                     >
                       {icon} {label}
                     </button>
                   ))}
-                  <div className="h-px bg-slate-100" />
+                  <div className="h-px bg-slate-100 dark:bg-slate-700" />
                   <button
                     onClick={() => {
                       handleLogout();
                       setShowProfileMenu(false);
                     }}
-                    className="flex items-center gap-2.5 w-full text-left px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition"
+                    className="flex items-center gap-2.5 w-full text-left px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition"
                   >
                     <LogOut size={14} /> Logout
                   </button>
@@ -425,7 +573,7 @@ export default function Home() {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => navigate("/")}
-                className="px-3 py-2.5 text-sm font-semibold text-slate-700 hover:text-blue-600 transition"
+                className="px-3 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition"
               >
                 Sign In
               </button>
@@ -436,10 +584,10 @@ export default function Home() {
 
       {/* ── FILTER PANEL ── */}
       {showFilters && (
-        <div className="bg-white border-b border-slate-200 px-5 py-5 sticky top-14.25 z-40">
+        <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-5 py-5 sticky top-14.25 z-40">
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold text-slate-700">
+              <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200">
                 {activeTab === "rooms" ? "Filter Rooms" : "Filter Requests"}
               </h3>
               {hasFilters && (
@@ -455,7 +603,7 @@ export default function Home() {
             {activeTab === "rooms" ? (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">
                     Min Price
                   </p>
                   <Input
@@ -466,7 +614,7 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">
                     Max Price
                   </p>
                   <Input
@@ -477,7 +625,7 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">
                     Room Type
                   </p>
                   <Select
@@ -493,7 +641,7 @@ export default function Home() {
                   </Select>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">
                     City
                   </p>
                   <Select
@@ -509,7 +657,7 @@ export default function Home() {
                   </Select>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">
                     Gender
                   </p>
                   <Select
@@ -534,7 +682,7 @@ export default function Home() {
             ) : (
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">
                     City
                   </p>
                   <Select
@@ -550,7 +698,7 @@ export default function Home() {
                   </Select>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">
                     Max Budget
                   </p>
                   <Input
@@ -561,7 +709,7 @@ export default function Home() {
                   />
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">
                     Looking For
                   </p>
                   <Select
@@ -575,7 +723,7 @@ export default function Home() {
                   </Select>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5 uppercase tracking-wide">
                     Duration
                   </p>
                   <Select
@@ -602,7 +750,7 @@ export default function Home() {
       )}
 
       {/* ── TABS ── */}
-      <div className="bg-white border-b border-slate-200 px-5">
+      <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-5">
         <div className="max-w-6xl mx-auto flex gap-1 -mb-px">
           {[
             { key: "rooms", label: "Rooms", count: totalRooms },
@@ -614,15 +762,15 @@ export default function Home() {
               className={`px-5 py-3.5 text-sm font-semibold border-b-2 transition ${
                 activeTab === key
                   ? "border-blue-600 text-blue-600"
-                  : "border-transparent text-slate-500 hover:text-slate-700"
+                  : "border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
               }`}
             >
               {label}
               <span
                 className={`ml-2 text-xs px-2 py-0.5 rounded-full font-bold ${
                   activeTab === key
-                    ? "bg-blue-100 text-blue-700"
-                    : "bg-slate-100 text-slate-500"
+                    ? "bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400"
+                    : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
                 }`}
               >
                 {count}
@@ -641,13 +789,13 @@ export default function Home() {
                 {Array.from({ length: 6 }).map((_, i) => (
                   <div
                     key={i}
-                    className="bg-white rounded-2xl border border-slate-200 p-4 flex gap-4 animate-pulse"
+                    className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-4 flex gap-4 animate-pulse"
                   >
-                    <div className="w-32 h-24 bg-slate-200 rounded-xl shrink-0" />
+                    <div className="w-32 h-24 bg-slate-200 dark:bg-slate-700 rounded-xl shrink-0" />
                     <div className="flex-1 space-y-3">
-                      <div className="h-4 bg-slate-200 rounded w-3/4" />
-                      <div className="h-3 bg-slate-200 rounded w-1/2" />
-                      <div className="h-4 bg-slate-200 rounded w-1/3" />
+                      <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/4" />
+                      <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-1/2" />
+                      <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-1/3" />
                     </div>
                   </div>
                 ))}
@@ -659,10 +807,10 @@ export default function Home() {
             ) : rooms.length === 0 ? (
               <div className="text-center py-20">
                 <div className="text-5xl mb-4">🔍</div>
-                <p className="text-slate-600 font-bold text-xl mb-1">
+                <p className="text-slate-600 dark:text-slate-300 font-bold text-xl mb-1">
                   No rooms found
                 </p>
-                <p className="text-slate-400 text-sm">
+                <p className="text-slate-400 dark:text-slate-500 text-sm">
                   Try adjusting your search or clear filters
                 </p>
               </div>
@@ -672,10 +820,10 @@ export default function Home() {
                   <div
                     key={room._id}
                     onClick={() => navigate(`/view-room/${room._id}`)}
-                    className="group bg-white rounded-2xl border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all cursor-pointer overflow-hidden flex gap-0"
+                    className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-md transition-all cursor-pointer overflow-hidden flex gap-0"
                   >
                     {/* Image */}
-                    <div className="w-36 shrink-0 bg-slate-100 relative overflow-hidden">
+                    <div className="w-36 shrink-0 bg-slate-100 dark:bg-slate-700 relative overflow-hidden">
                       {room.mediaIDs?.length > 0 ? (
                         <img
                           src={room.mediaIDs[0].url}
@@ -690,17 +838,17 @@ export default function Home() {
                     <div className="flex-1 p-4 flex flex-col justify-between min-w-0">
                       <div>
                         <div className="flex items-center gap-2 mb-2 flex-wrap">
-                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">
+                          <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400">
                             {ROOM_TYPE_LABELS[room.roomType] || room.roomType}
                           </span>
                           {room.genderPreference &&
                             room.genderPreference !== "any" && (
-                              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-pink-50 text-pink-600">
+                              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-pink-50 dark:bg-pink-900/30 text-pink-600 dark:text-pink-400">
                                 {room.genderPreference} only
                               </span>
                             )}
                         </div>
-                        <h3 className="font-bold text-slate-900 text-sm line-clamp-1 mb-0.5">
+                        <h3 className="font-bold text-slate-900 dark:text-white text-sm line-clamp-1 mb-0.5">
                           {room.title
                             ? room.title.charAt(0).toUpperCase() +
                               room.title.slice(1)
@@ -781,11 +929,11 @@ export default function Home() {
                 {Array.from({ length: 4 }).map((_, i) => (
                   <div
                     key={i}
-                    className="bg-white rounded-2xl border border-slate-200 p-5 animate-pulse space-y-3"
+                    className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 animate-pulse space-y-3"
                   >
-                    <div className="h-4 bg-slate-200 rounded w-1/2" />
-                    <div className="h-3 bg-slate-200 rounded w-3/4" />
-                    <div className="h-4 bg-slate-200 rounded w-1/3" />
+                    <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-1/2" />
+                    <div className="h-3 bg-slate-200 dark:bg-slate-700 rounded w-3/4" />
+                    <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded w-1/3" />
                   </div>
                 ))}
               </div>
@@ -796,10 +944,10 @@ export default function Home() {
             ) : requests.length === 0 ? (
               <div className="text-center py-20">
                 <div className="text-5xl mb-4">📋</div>
-                <p className="text-slate-600 font-bold text-xl mb-1">
+                <p className="text-slate-600 dark:text-slate-300 font-bold text-xl mb-1">
                   No room requests yet
                 </p>
-                <p className="text-slate-400 text-sm mb-6">
+                <p className="text-slate-400 dark:text-slate-500 text-sm mb-6">
                   Be the first to post what you're looking for
                 </p>
                 <button
@@ -819,29 +967,29 @@ export default function Home() {
                     <div
                       key={req._id}
                       onClick={() => navigate(`/view-request/${req._id}`)}
-                      className="bg-white rounded-2xl border border-slate-200 hover:border-amber-300 hover:shadow-md transition-all p-5 cursor-pointer"
+                      className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 hover:border-amber-300 dark:hover:border-amber-600 hover:shadow-md transition-all p-5 cursor-pointer"
                     >
                       <div className="flex items-start justify-between gap-3">
                         <div className="flex gap-3 flex-1 min-w-0">
                           {/* Avatar */}
-                          <div className="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-700 font-black text-sm shrink-0">
+                          <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-700 dark:text-amber-400 font-black text-sm shrink-0">
                             {(WHO_LABELS[req.whoAmI] || "?").charAt(0)}
                           </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
-                              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-700">
+                              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400">
                                 {WHO_LABELS[req.whoAmI] || req.whoAmI}
                               </span>
-                              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
+                              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
                                 {req.gender}
                               </span>
-                              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
+                              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
                                 {req.duration === "short_term"
                                   ? "Short term"
                                   : "Long term"}
                               </span>
                             </div>
-                            <p className="font-bold text-slate-900 text-sm flex items-center gap-1">
+                            <p className="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-1">
                               <svg
                                 className="w-3.5 h-3.5 text-blue-500 shrink-0"
                                 fill="none"
@@ -864,7 +1012,7 @@ export default function Home() {
                               </span>
                             </p>
                             {req.bio && (
-                              <p className="text-slate-400 text-xs mt-1.5 line-clamp-2">
+                              <p className="text-slate-400 dark:text-slate-500 text-xs mt-1.5 line-clamp-2">
                                 {req.bio}
                               </p>
                             )}
@@ -889,7 +1037,7 @@ export default function Home() {
                           </a>
                         )}
                       </div>
-                      <p className="text-slate-300 text-xs mt-3 text-right">
+                      <p className="text-slate-300 dark:text-slate-600 text-xs mt-3 text-right">
                         {new Date(req.createdAt).toLocaleDateString()}
                       </p>
                     </div>

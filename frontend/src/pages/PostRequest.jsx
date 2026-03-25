@@ -4,26 +4,122 @@ import api from "./../utils/api";
 import { ArrowLeft } from "lucide-react";
 
 const SRI_LANKA_CITIES = [
-  "Colombo","Dehiwala-Mount Lavinia","Sri Jayawardenepura Kotte","Moratuwa",
-  "Negombo","Kalutara","Panadura","Homagama","Kaduwela","Maharagama",
-  "Kolonnawa","Kesbewa","Gampaha","Ja-Ela","Wattala","Ragama","Kandana",
-  "Minuwangoda","Divulapitiya","Mirigama","Beruwala","Aluthgama","Matugama",
-  "Bandaragama","Kandy","Matale","Nuwara Eliya","Gampola","Nawalapitiya",
-  "Dambulla","Sigiriya","Hatton","Dikoya","Talawakele","Haputale",
-  "Bandarawela","Badulla","Mahiyanganaya","Moneragala","Welimada","Bibile",
-  "Galle","Matara","Hambantota","Weligama","Unawatuna","Hikkaduwa",
-  "Ambalangoda","Tangalle","Tissamaharama","Dickwella","Koggala","Mirissa",
-  "Deniyaya","Akuressa","Elpitiya","Jaffna","Kilinochchi","Mannar",
-  "Vavuniya","Mullaitivu","Chavakachcheri","Point Pedro","Nelliady","Kayts",
-  "Trincomalee","Batticaloa","Ampara","Kalmunai","Sammanthurai","Akkaraipattu",
-  "Kattankudy","Valaichchenai","Eravur","Chenkaladi","Kurunegala","Puttalam",
-  "Kuliyapitiya","Narammala","Wariyapola","Chilaw","Wennappuwa","Marawila",
-  "Nikaweratiya","Maho","Alawwa","Pannala","Nattandiya","Anuradhapura",
-  "Polonnaruwa","Kekirawa","Medawachchiya","Tambuttegama","Eppawala",
-  "Mihintale","Hingurakgoda","Kaduruwela","Medirigiriya","Wellawaya",
-  "Diyatalawa","Passara","Ella","Hali-Ela","Ratnapura","Kegalle","Balangoda",
-  "Embilipitiya","Avissawella","Ruwanwella","Mawanella","Rambukkana",
-  "Warakapola","Eheliyagoda","Kuruwita","Kahawatta","Pelmadulla",
+  "Colombo",
+  "Dehiwala-Mount Lavinia",
+  "Sri Jayawardenepura Kotte",
+  "Moratuwa",
+  "Negombo",
+  "Kalutara",
+  "Panadura",
+  "Homagama",
+  "Kaduwela",
+  "Maharagama",
+  "Kolonnawa",
+  "Kesbewa",
+  "Gampaha",
+  "Ja-Ela",
+  "Wattala",
+  "Ragama",
+  "Kandana",
+  "Minuwangoda",
+  "Divulapitiya",
+  "Mirigama",
+  "Beruwala",
+  "Aluthgama",
+  "Matugama",
+  "Bandaragama",
+  "Kandy",
+  "Matale",
+  "Nuwara Eliya",
+  "Gampola",
+  "Nawalapitiya",
+  "Dambulla",
+  "Sigiriya",
+  "Hatton",
+  "Dikoya",
+  "Talawakele",
+  "Haputale",
+  "Bandarawela",
+  "Badulla",
+  "Mahiyanganaya",
+  "Moneragala",
+  "Welimada",
+  "Bibile",
+  "Galle",
+  "Matara",
+  "Hambantota",
+  "Weligama",
+  "Unawatuna",
+  "Hikkaduwa",
+  "Ambalangoda",
+  "Tangalle",
+  "Tissamaharama",
+  "Dickwella",
+  "Koggala",
+  "Mirissa",
+  "Deniyaya",
+  "Akuressa",
+  "Elpitiya",
+  "Jaffna",
+  "Kilinochchi",
+  "Mannar",
+  "Vavuniya",
+  "Mullaitivu",
+  "Chavakachcheri",
+  "Point Pedro",
+  "Nelliady",
+  "Kayts",
+  "Trincomalee",
+  "Batticaloa",
+  "Ampara",
+  "Kalmunai",
+  "Sammanthurai",
+  "Akkaraipattu",
+  "Kattankudy",
+  "Valaichchenai",
+  "Eravur",
+  "Chenkaladi",
+  "Kurunegala",
+  "Puttalam",
+  "Kuliyapitiya",
+  "Narammala",
+  "Wariyapola",
+  "Chilaw",
+  "Wennappuwa",
+  "Marawila",
+  "Nikaweratiya",
+  "Maho",
+  "Alawwa",
+  "Pannala",
+  "Nattandiya",
+  "Anuradhapura",
+  "Polonnaruwa",
+  "Kekirawa",
+  "Medawachchiya",
+  "Tambuttegama",
+  "Eppawala",
+  "Mihintale",
+  "Hingurakgoda",
+  "Kaduruwela",
+  "Medirigiriya",
+  "Wellawaya",
+  "Diyatalawa",
+  "Passara",
+  "Ella",
+  "Hali-Ela",
+  "Ratnapura",
+  "Kegalle",
+  "Balangoda",
+  "Embilipitiya",
+  "Avissawella",
+  "Ruwanwella",
+  "Mawanella",
+  "Rambukkana",
+  "Warakapola",
+  "Eheliyagoda",
+  "Kuruwita",
+  "Kahawatta",
+  "Pelmadulla",
 ];
 
 const ROOM_TYPES = [
@@ -39,10 +135,12 @@ const ROOM_TYPES = [
 
 const Field = ({ label, required, hint, children }) => (
   <div>
-    <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
       {label} {required && <span className="text-red-400">*</span>}
       {hint && (
-        <span className="text-slate-400 font-normal ml-1">({hint})</span>
+        <span className="text-slate-400 dark:text-slate-500 font-normal ml-1">
+          ({hint})
+        </span>
       )}
     </label>
     {children}
@@ -50,7 +148,7 @@ const Field = ({ label, required, hint, children }) => (
 );
 
 const inputCls =
-  "w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 placeholder:text-slate-400 transition";
+  "w-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition";
 
 const PostRequest = () => {
   const [whoAmI, setWhoAmI] = useState("student");
@@ -99,45 +197,51 @@ const PostRequest = () => {
 
   if (loading)
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">Posting your request...</p>
+          <p className="text-slate-500 dark:text-slate-400 font-medium">
+            Posting your request...
+          </p>
         </div>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 px-5 py-4 sticky top-0 z-10">
+      <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-5 py-4 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <button
             onClick={handleBack}
-            className="p-2 hover:bg-slate-100 rounded-xl transition text-slate-600"
+            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition text-slate-600 dark:text-slate-300"
           >
             <ArrowLeft size={18} />
           </button>
           <div>
-            <h1 className="text-lg font-black text-slate-900">
+            <h1 className="text-lg font-black text-slate-900 dark:text-white">
               Post a Room Request
             </h1>
-            <p className="text-xs text-slate-400">Let landlords find you</p>
+            <p className="text-xs text-slate-400 dark:text-slate-500">
+              Let landlords find you
+            </p>
           </div>
         </div>
       </div>
 
       <div className="max-w-2xl mx-auto px-5 py-8">
         {error && (
-          <div className="mb-6 flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium">
+          <div className="mb-6 flex items-center gap-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl text-sm font-medium">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Section 1: About You */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
-            <h2 className="font-black text-slate-900 text-base">About You</h2>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-5">
+            <h2 className="font-black text-slate-900 dark:text-white text-base">
+              About You
+            </h2>
 
             <div className="grid grid-cols-2 gap-4">
               <Field label="I am a" required>
@@ -188,8 +292,8 @@ const PostRequest = () => {
           </div>
 
           {/* Section 2: What You're Looking For */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
-            <h2 className="font-black text-slate-900 text-base">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-5">
+            <h2 className="font-black text-slate-900 dark:text-white text-base">
               What You're Looking For
             </h2>
 
@@ -202,7 +306,9 @@ const PostRequest = () => {
               >
                 <option value="">Select a city</option>
                 {SRI_LANKA_CITIES.map((city) => (
-                  <option key={city} value={city}>{city}</option>
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
                 ))}
               </select>
             </Field>
@@ -267,8 +373,8 @@ const PostRequest = () => {
             <label
               className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition select-none ${
                 mealsNeeded
-                  ? "border-emerald-400 bg-emerald-50"
-                  : "border-slate-200 hover:border-slate-300"
+                  ? "border-emerald-400 bg-emerald-50 dark:bg-emerald-900/20"
+                  : "border-slate-200 dark:border-slate-700 hover:border-slate-300"
               }`}
             >
               <input
@@ -279,11 +385,11 @@ const PostRequest = () => {
               />
               <div className="flex-1">
                 <p
-                  className={`text-sm font-semibold ${mealsNeeded ? "text-emerald-700" : "text-slate-700"}`}
+                  className={`text-sm font-semibold ${mealsNeeded ? "text-emerald-700 dark:text-emerald-400" : "text-slate-700 dark:text-slate-200"}`}
                 >
                   Meals Needed
                 </p>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-slate-400 dark:text-slate-500">
                   I'm looking for a boarding house with meals included
                 </p>
               </div>
@@ -298,7 +404,7 @@ const PostRequest = () => {
             <button
               type="button"
               onClick={handleBack}
-              className="flex-1 py-3.5 border border-slate-200 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition text-sm"
+              className="flex-1 py-3.5 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-xl font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition text-sm"
             >
               Cancel
             </button>

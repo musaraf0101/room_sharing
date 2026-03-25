@@ -41,29 +41,33 @@ const MyRequests = () => {
 
   if (loading)
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">Loading your requests...</p>
+          <p className="text-slate-500 dark:text-slate-400 font-medium">
+            Loading your requests...
+          </p>
         </div>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 px-5 py-4 sticky top-0 z-10">
+      <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-5 py-4 sticky top-0 z-10">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               onClick={() => navigate("/home")}
-              className="p-2 hover:bg-slate-100 rounded-xl transition text-slate-600"
+              className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition text-slate-600 dark:text-slate-300"
             >
               <ArrowLeft size={18} />
             </button>
             <div>
-              <h1 className="text-xl font-black text-slate-900">My Requests</h1>
-              <p className="text-xs text-slate-400">
+              <h1 className="text-xl font-black text-slate-900 dark:text-white">
+                My Requests
+              </h1>
+              <p className="text-xs text-slate-400 dark:text-slate-500">
                 {requests.length} active request
                 {requests.length !== 1 ? "s" : ""}
               </p>
@@ -80,18 +84,18 @@ const MyRequests = () => {
 
       <div className="max-w-3xl mx-auto px-5 py-6">
         {error && (
-          <div className="mb-5 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm font-medium">
+          <div className="mb-5 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 px-4 py-3 rounded-xl text-sm font-medium">
             {error}
           </div>
         )}
 
         {requests.length === 0 ? (
-          <div className="bg-white rounded-2xl border-2 border-dashed border-slate-200 p-16 text-center">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-700 p-16 text-center">
             <div className="text-5xl mb-4">🔍</div>
-            <h3 className="text-xl font-black text-slate-700 mb-2">
+            <h3 className="text-xl font-black text-slate-700 dark:text-slate-200 mb-2">
               No requests yet
             </h3>
-            <p className="text-slate-400 text-sm mb-8">
+            <p className="text-slate-400 dark:text-slate-500 text-sm mb-8">
               Post a room request so landlords can find and contact you
               directly.
             </p>
@@ -107,29 +111,29 @@ const MyRequests = () => {
             {requests.map((req) => (
               <div
                 key={req._id}
-                className="bg-white rounded-2xl border border-slate-200 hover:shadow-md transition-all p-6"
+                className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 hover:shadow-md transition-all p-6"
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex gap-4 flex-1 min-w-0">
                     {/* Avatar */}
-                    <div className="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-700 font-black text-lg shrink-0">
+                    <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-700 dark:text-amber-400 font-black text-lg shrink-0">
                       {(WHO_LABELS[req.whoAmI] || "?").charAt(0)}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex flex-wrap gap-2 mb-2">
-                        <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-100">
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 border border-amber-100">
                           {WHO_LABELS[req.whoAmI] || req.whoAmI}
                         </span>
-                        <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-100">
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-100 dark:border-blue-900/30">
                           {req.gender}
                         </span>
-                        <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-100 text-slate-600">
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
                           {req.duration === "short_term"
                             ? "Short term"
                             : "Long term"}
                         </span>
                         {req.mealsNeeded && (
-                          <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100">
+                          <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-900/30">
                             🍽️ Meals needed
                           </span>
                         )}
@@ -149,27 +153,27 @@ const MyRequests = () => {
                             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
                           />
                         </svg>
-                        <span className="font-bold text-slate-900 text-sm">
+                        <span className="font-bold text-slate-900 dark:text-white text-sm">
                           {req.lookingIn}
                         </span>
                       </div>
 
                       <p className="text-emerald-600 font-black text-base">
                         Rs {req.maxBudget?.toLocaleString()}
-                        <span className="text-slate-400 text-sm font-normal">
+                        <span className="text-slate-400 dark:text-slate-500 text-sm font-normal">
                           {" "}
                           /month max
                         </span>
                       </p>
 
                       {req.bio && (
-                        <p className="text-slate-500 text-sm mt-2 line-clamp-2 leading-relaxed">
+                        <p className="text-slate-500 dark:text-slate-400 text-sm mt-2 line-clamp-2 leading-relaxed">
                           {req.bio}
                         </p>
                       )}
 
                       {req.moveInDate && (
-                        <p className="text-slate-400 text-xs mt-2 flex items-center gap-1">
+                        <p className="text-slate-400 dark:text-slate-500 text-xs mt-2 flex items-center gap-1">
                           📅 Move in:{" "}
                           {new Date(req.moveInDate).toLocaleDateString(
                             "en-LK",
@@ -182,15 +186,15 @@ const MyRequests = () => {
 
                   <button
                     onClick={() => handleDelete(req._id)}
-                    className="shrink-0 p-2.5 text-red-500 hover:bg-red-50 rounded-xl border border-red-100 hover:border-red-200 transition"
+                    className="shrink-0 p-2.5 text-red-500 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl border border-red-100 dark:border-red-800 hover:border-red-200 transition"
                     title="Delete request"
                   >
                     <Trash2 size={16} />
                   </button>
                 </div>
 
-                <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100">
-                  <span className="text-xs text-slate-400">
+                <div className="flex items-center justify-between mt-4 pt-4 border-t border-slate-100 dark:border-slate-700">
+                  <span className="text-xs text-slate-400 dark:text-slate-500">
                     Posted{" "}
                     {new Date(req.createdAt).toLocaleDateString("en-LK", {
                       dateStyle: "medium",

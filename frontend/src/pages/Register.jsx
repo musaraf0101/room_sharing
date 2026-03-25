@@ -88,7 +88,7 @@ const Register = () => {
       </div>
 
       {/* Right Form Panel */}
-      <div className="flex-1 flex items-center justify-center bg-slate-50 px-6 py-12">
+      <div className="flex-1 flex items-center justify-center bg-slate-50 dark:bg-slate-900 px-6 py-12">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-10 lg:hidden">
@@ -96,16 +96,16 @@ const Register = () => {
           </div>
 
           <div className="mb-8">
-            <h2 className="text-3xl font-black text-slate-900">
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white">
               Create account
             </h2>
-            <p className="text-slate-500 mt-1.5">
+            <p className="text-slate-500 dark:text-slate-400 mt-1.5">
               Free forever. No credit card needed.
             </p>
           </div>
 
           {error && (
-            <div className="mb-6 flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium">
+            <div className="mb-6 flex items-center gap-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl text-sm font-medium">
               <svg
                 className="w-4 h-4 shrink-0"
                 fill="currentColor"
@@ -123,7 +123,7 @@ const Register = () => {
 
           <form onSubmit={handleRegister} className="space-y-5">
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
                 Full Name
               </label>
               <input
@@ -132,12 +132,12 @@ const Register = () => {
                 onChange={(e) => setUserName(e.target.value)}
                 placeholder="Your name"
                 required
-                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 text-slate-900"
+                className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
                 Email Address
               </label>
               <input
@@ -146,12 +146,12 @@ const Register = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
-                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 text-slate-900"
+                className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
                 Password
               </label>
               <input
@@ -161,14 +161,16 @@ const Register = () => {
                 placeholder="Min. 8 characters"
                 required
                 minLength={8}
-                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 text-slate-900"
+                className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
                 Phone Number{" "}
-                <span className="text-slate-400 font-normal">(optional)</span>
+                <span className="text-slate-400 dark:text-slate-500 font-normal">
+                  (optional)
+                </span>
               </label>
               <input
                 type="tel"
@@ -176,7 +178,7 @@ const Register = () => {
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 placeholder="07X XXXXXXX"
                 maxLength={10}
-                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 text-slate-900"
+                className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
               />
             </div>
 
@@ -189,7 +191,7 @@ const Register = () => {
             </button>
           </form>
 
-          <p className="text-center text-slate-500 mt-8 text-sm">
+          <p className="text-center text-slate-500 dark:text-slate-400 mt-8 text-sm">
             Already have an account?{" "}
             <Link
               to="/"

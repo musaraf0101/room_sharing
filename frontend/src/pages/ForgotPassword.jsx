@@ -24,31 +24,33 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-6">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900 px-6">
       <div className="w-full max-w-md">
         <div className="mb-8">
           <span className="text-2xl font-black text-blue-600">RoomLK</span>
-          <h2 className="text-3xl font-black text-slate-900 mt-6">Forgot password</h2>
-          <p className="text-slate-500 mt-1.5">
+          <h2 className="text-3xl font-black text-slate-900 dark:text-white mt-6">
+            Forgot password
+          </h2>
+          <p className="text-slate-500 dark:text-slate-400 mt-1.5">
             Enter your email and we'll send you a reset link.
           </p>
         </div>
 
         {message && (
-          <div className="mb-6 bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-xl text-sm font-medium">
+          <div className="mb-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 px-4 py-3 rounded-xl text-sm font-medium">
             {message}
           </div>
         )}
 
         {error && (
-          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium">
+          <div className="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl text-sm font-medium">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
               Email Address
             </label>
             <input
@@ -57,7 +59,7 @@ const ForgotPassword = () => {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
               required
-              className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 text-slate-900"
+              className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
             />
           </div>
 
@@ -70,7 +72,7 @@ const ForgotPassword = () => {
           </button>
         </form>
 
-        <p className="text-center text-slate-500 mt-8 text-sm">
+        <p className="text-center text-slate-500 dark:text-slate-400 mt-8 text-sm">
           Remember your password?{" "}
           <Link to="/" className="font-bold text-blue-600 hover:text-blue-700">
             Sign in

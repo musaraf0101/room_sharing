@@ -22,7 +22,9 @@ const ResetPassword = () => {
     setLoading(true);
     try {
       await api.post(`/auth/reset-password/${token}`, { password });
-      navigate("/", { state: { message: "Password reset successful. Please log in." } });
+      navigate("/", {
+        state: { message: "Password reset successful. Please log in." },
+      });
     } catch (err) {
       setError(err.response?.data?.message || "Invalid or expired reset link.");
     } finally {
@@ -32,33 +34,41 @@ const ResetPassword = () => {
 
   if (!token) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 px-6">
+      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900 px-6">
         <div className="text-center">
-          <h2 className="text-2xl font-black text-slate-900">Invalid Link</h2>
-          <p className="text-slate-500 mt-2">This reset link is missing or invalid.</p>
+          <h2 className="text-2xl font-black text-slate-900 dark:text-white">
+            Invalid Link
+          </h2>
+          <p className="text-slate-500 dark:text-slate-400 mt-2">
+            This reset link is missing or invalid.
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-50 px-6">
+    <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-900 px-6">
       <div className="w-full max-w-md">
         <div className="mb-8">
           <span className="text-2xl font-black text-blue-600">RoomLK</span>
-          <h2 className="text-3xl font-black text-slate-900 mt-6">Reset password</h2>
-          <p className="text-slate-500 mt-1.5">Enter your new password below.</p>
+          <h2 className="text-3xl font-black text-slate-900 dark:text-white mt-6">
+            Reset password
+          </h2>
+          <p className="text-slate-500 dark:text-slate-400 mt-1.5">
+            Enter your new password below.
+          </p>
         </div>
 
         {error && (
-          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium">
+          <div className="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl text-sm font-medium">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
               New Password
             </label>
             <input
@@ -68,12 +78,12 @@ const ResetPassword = () => {
               placeholder="Min. 8 characters"
               required
               minLength={8}
-              className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 text-slate-900"
+              className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+            <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
               Confirm New Password
             </label>
             <input
@@ -83,7 +93,7 @@ const ResetPassword = () => {
               placeholder="Repeat your password"
               required
               minLength={8}
-              className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 text-slate-900"
+              className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
             />
           </div>
 

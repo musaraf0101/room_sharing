@@ -16,10 +16,12 @@ const ROOM_TYPES = [
 
 const Field = ({ label, required, hint, children }) => (
   <div>
-    <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
       {label} {required && <span className="text-red-400">*</span>}
       {hint && (
-        <span className="text-slate-400 font-normal ml-1">({hint})</span>
+        <span className="text-slate-400 dark:text-slate-500 font-normal ml-1">
+          ({hint})
+        </span>
       )}
     </label>
     {children}
@@ -27,7 +29,7 @@ const Field = ({ label, required, hint, children }) => (
 );
 
 const inputCls =
-  "w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 placeholder:text-slate-400 transition";
+  "w-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 transition";
 
 const UpdateRoom = () => {
   const { id } = useParams();
@@ -124,30 +126,32 @@ const UpdateRoom = () => {
 
   if (fetching)
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-10 h-10 text-blue-600 animate-spin mx-auto mb-3" />
-          <p className="text-slate-500 font-medium">Loading room details...</p>
+          <p className="text-slate-500 dark:text-slate-400 font-medium">
+            Loading room details...
+          </p>
         </div>
       </div>
     );
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200 px-5 py-4 sticky top-0 z-10">
+      <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-5 py-4 sticky top-0 z-10">
         <div className="max-w-2xl mx-auto flex items-center gap-3">
           <button
             onClick={() => navigate("/my-rooms")}
-            className="p-2 hover:bg-slate-100 rounded-xl transition text-slate-600"
+            className="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition text-slate-600 dark:text-slate-300"
           >
             <ArrowLeft size={18} />
           </button>
           <div>
-            <h1 className="text-lg font-black text-slate-900">
+            <h1 className="text-lg font-black text-slate-900 dark:text-white">
               Update Listing
             </h1>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-slate-400 dark:text-slate-500">
               Changes will refresh your post timestamp
             </p>
           </div>
@@ -156,16 +160,16 @@ const UpdateRoom = () => {
 
       <div className="max-w-2xl mx-auto px-5 py-8">
         {error && (
-          <div className="mb-6 flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium">
+          <div className="mb-6 flex items-center gap-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl text-sm font-medium">
             ⚠️ {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Section 1: Details */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
-            <h2 className="font-black text-slate-900 text-base flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs flex items-center justify-center font-black">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-5">
+            <h2 className="font-black text-slate-900 dark:text-white text-base flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 text-xs flex items-center justify-center font-black">
                 1
               </span>
               Room Details
@@ -218,9 +222,9 @@ const UpdateRoom = () => {
           </div>
 
           {/* Section 2: Pricing */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
-            <h2 className="font-black text-slate-900 text-base flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs flex items-center justify-center font-black">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-5">
+            <h2 className="font-black text-slate-900 dark:text-white text-base flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 text-xs flex items-center justify-center font-black">
                 2
               </span>
               Pricing
@@ -249,7 +253,7 @@ const UpdateRoom = () => {
             </div>
 
             <div>
-              <p className="text-sm font-semibold text-slate-700 mb-3">
+              <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 mb-3">
                 What's included in rent
               </p>
               <div className="grid grid-cols-2 gap-3">
@@ -263,8 +267,8 @@ const UpdateRoom = () => {
                     key={key}
                     className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition select-none ${
                       utilities[key]
-                        ? "border-blue-400 bg-blue-50"
-                        : "border-slate-200 hover:border-slate-300 bg-white"
+                        ? "border-blue-400 bg-blue-50 dark:bg-blue-900/40"
+                        : "border-slate-200 dark:border-slate-700 hover:border-slate-300 bg-white dark:bg-slate-800"
                     }`}
                   >
                     <input
@@ -277,7 +281,7 @@ const UpdateRoom = () => {
                     />
                     <span className="text-lg">{icon}</span>
                     <span
-                      className={`text-sm font-semibold ${utilities[key] ? "text-blue-700" : "text-slate-700"}`}
+                      className={`text-sm font-semibold ${utilities[key] ? "text-blue-700 dark:text-blue-400" : "text-slate-700 dark:text-slate-200"}`}
                     >
                       {label}
                     </span>
@@ -293,9 +297,9 @@ const UpdateRoom = () => {
           </div>
 
           {/* Section 3: Preferences */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
-            <h2 className="font-black text-slate-900 text-base flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs flex items-center justify-center font-black">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-5">
+            <h2 className="font-black text-slate-900 dark:text-white text-base flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 text-xs flex items-center justify-center font-black">
                 3
               </span>
               Preferences
@@ -338,9 +342,9 @@ const UpdateRoom = () => {
           </div>
 
           {/* Section 4: Description */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
-            <h2 className="font-black text-slate-900 text-base flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs flex items-center justify-center font-black">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-5">
+            <h2 className="font-black text-slate-900 dark:text-white text-base flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 text-xs flex items-center justify-center font-black">
                 4
               </span>
               Description & Rules
@@ -368,9 +372,9 @@ const UpdateRoom = () => {
           </div>
 
           {/* Section 5: Photos */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
-            <h2 className="font-black text-slate-900 text-base flex items-center gap-2">
-              <span className="w-6 h-6 rounded-full bg-blue-100 text-blue-700 text-xs flex items-center justify-center font-black">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 space-y-4">
+            <h2 className="font-black text-slate-900 dark:text-white text-base flex items-center gap-2">
+              <span className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-400 text-xs flex items-center justify-center font-black">
                 5
               </span>
               Photos
@@ -378,14 +382,14 @@ const UpdateRoom = () => {
 
             {existingImages.length > 0 && (
               <div>
-                <p className="text-xs text-slate-400 mb-2 font-medium">
+                <p className="text-xs text-slate-400 dark:text-slate-500 mb-2 font-medium">
                   Current photos (uploading new ones will replace these)
                 </p>
                 <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                   {existingImages.map((img, i) => (
                     <div
                       key={i}
-                      className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-slate-200"
+                      className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-slate-200 dark:border-slate-700"
                     >
                       <img
                         src={img.url}
@@ -397,7 +401,7 @@ const UpdateRoom = () => {
               </div>
             )}
 
-            <label className="relative flex flex-col items-center justify-center gap-3 p-8 border-2 border-dashed border-slate-200 rounded-xl hover:border-blue-400 hover:bg-blue-50/30 cursor-pointer transition group">
+            <label className="relative flex flex-col items-center justify-center gap-3 p-8 border-2 border-dashed border-slate-200 dark:border-slate-600 rounded-xl hover:border-blue-400 hover:bg-blue-50/30 cursor-pointer transition group">
               <input
                 type="file"
                 multiple
@@ -405,19 +409,19 @@ const UpdateRoom = () => {
                 onChange={(e) => setImages(e.target.files)}
                 className="absolute inset-0 opacity-0 cursor-pointer"
               />
-              <div className="w-12 h-12 rounded-2xl bg-slate-100 group-hover:bg-blue-100 flex items-center justify-center transition">
+              <div className="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-700 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40 flex items-center justify-center transition">
                 <Upload
-                  className="text-slate-400 group-hover:text-blue-500 transition"
+                  className="text-slate-400 dark:text-slate-500 group-hover:text-blue-500 transition"
                   size={22}
                 />
               </div>
               <div className="text-center">
-                <p className="text-sm font-semibold text-slate-700 group-hover:text-blue-700 transition">
+                <p className="text-sm font-semibold text-slate-700 dark:text-slate-200 group-hover:text-blue-700 transition">
                   {images.length > 0
                     ? `${images.length} new photo${images.length > 1 ? "s" : ""} selected`
                     : "Upload new photos"}
                 </p>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
                   PNG, JPG — up to 4 images
                 </p>
               </div>
@@ -429,7 +433,7 @@ const UpdateRoom = () => {
             <button
               type="button"
               onClick={() => navigate("/my-rooms")}
-              className="flex-1 py-3.5 border border-slate-200 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition text-sm"
+              className="flex-1 py-3.5 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-xl font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition text-sm"
             >
               Cancel
             </button>

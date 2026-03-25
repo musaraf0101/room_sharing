@@ -92,7 +92,7 @@ const Login = () => {
       </div>
 
       {/* Right Form Panel */}
-      <div className="flex-1 flex items-center justify-center bg-slate-50 px-6 py-12">
+      <div className="flex-1 flex items-center justify-center bg-slate-50 dark:bg-slate-900 px-6 py-12">
         <div className="w-full max-w-md">
           {/* Mobile logo */}
           <div className="flex items-center gap-2 mb-10 lg:hidden">
@@ -100,12 +100,16 @@ const Login = () => {
           </div>
 
           <div className="mb-8">
-            <h2 className="text-3xl font-black text-slate-900">Welcome back</h2>
-            <p className="text-slate-500 mt-1.5">Sign in to your account</p>
+            <h2 className="text-3xl font-black text-slate-900 dark:text-white">
+              Welcome back
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400 mt-1.5">
+              Sign in to your account
+            </p>
           </div>
 
           {error && (
-            <div className="mb-6 flex items-center gap-3 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl text-sm font-medium">
+            <div className="mb-6 flex items-center gap-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-xl text-sm font-medium">
               <svg
                 className="w-4 h-4 shrink-0"
                 fill="currentColor"
@@ -123,7 +127,7 @@ const Login = () => {
 
           <form onSubmit={handleLogin} className="space-y-5">
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+              <label className="block text-sm font-semibold text-slate-700 dark:text-slate-200 mb-1.5">
                 Email Address
               </label>
               <input
@@ -132,13 +136,13 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
-                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 text-slate-900"
+                className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-sm font-semibold text-slate-700">
+                <label className="text-sm font-semibold text-slate-700 dark:text-slate-200">
                   Password
                 </label>
                 <Link
@@ -154,7 +158,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
                 required
-                className="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 text-slate-900"
+                className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
               />
             </div>
 
@@ -167,7 +171,7 @@ const Login = () => {
             </button>
           </form>
 
-          <p className="text-center text-slate-500 mt-8 text-sm">
+          <p className="text-center text-slate-500 dark:text-slate-400 mt-8 text-sm">
             Don't have an account?{" "}
             <Link
               to="/register"
@@ -177,11 +181,11 @@ const Login = () => {
             </Link>
           </p>
 
-          <p className="text-center text-slate-400 mt-6 text-xs">
+          <p className="text-center text-slate-400 dark:text-slate-500 mt-6 text-xs">
             Or{" "}
             <Link
               to="/home"
-              className="text-slate-500 hover:text-blue-600 font-medium"
+              className="text-slate-500 dark:text-slate-400 hover:text-blue-600 font-medium"
             >
               browse without signing in →
             </Link>
