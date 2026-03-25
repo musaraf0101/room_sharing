@@ -194,6 +194,8 @@ export default function Home() {
   const [whoAmIFilter, setWhoAmIFilter] = useState("");
   const [durationFilter, setDurationFilter] = useState("");
 
+  const [clearTrigger, setClearTrigger] = useState(0);
+
   // Rooms
   const [rooms, setRooms] = useState([]);
   const [roomsLoading, setRoomsLoading] = useState(false);
@@ -271,6 +273,11 @@ export default function Home() {
   useEffect(() => {
     fetchRequests(requestsPage);
   }, [requestsPage]);
+  useEffect(() => {
+    if (clearTrigger === 0) return;
+    fetchRooms(1);
+    fetchRequests(1);
+  }, [clearTrigger]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -311,6 +318,7 @@ export default function Home() {
     setDurationFilter("");
     setSearchCity("");
     setCityInput("");
+    setClearTrigger((t) => t + 1);
   };
 
   const handleLogout = async () => {
