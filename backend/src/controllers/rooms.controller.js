@@ -17,7 +17,7 @@ export const getAllRoom = async (req, res) => {
     const filter = {};
 
     if (req.query.city) {
-      filter.location = { $regex: req.query.city, $options: "i" };
+      filter.location = req.query.city;
     }
     if (req.query.minPrice || req.query.maxPrice) {
       filter.price = {};

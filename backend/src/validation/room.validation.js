@@ -1,9 +1,11 @@
 import joi from "joi";
+import { SRI_LANKA_CITIES } from "../constants/cities.js";
 
 export const createRoomValidation = (data) => {
   const schema = joi.object({
     roomType: joi.string().required(),
-    location: joi.string().required(),
+    location: joi.string().valid(...SRI_LANKA_CITIES).required(),
+    subArea: joi.string().optional(),
     price: joi.number().required(),
     securityDeposit: joi.number().optional(),
     waterIncluded: joi.string().optional(),
@@ -24,7 +26,8 @@ export const createRoomValidation = (data) => {
 export const updateRoomValidation = (data) => {
   const schema = joi.object({
     roomType: joi.string().optional(),
-    location: joi.string().optional(),
+    location: joi.string().valid(...SRI_LANKA_CITIES).optional(),
+    subArea: joi.string().optional(),
     price: joi.number().optional(),
     securityDeposit: joi.number().optional(),
     waterIncluded: joi.string().optional(),

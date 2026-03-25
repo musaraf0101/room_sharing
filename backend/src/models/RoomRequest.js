@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { SRI_LANKA_CITIES } from "../constants/cities.js";
 
 const roomRequestSchema = new mongoose.Schema(
   {
@@ -15,6 +16,10 @@ const roomRequestSchema = new mongoose.Schema(
     lookingIn: {
       type: String,
       required: true,
+      enum: SRI_LANKA_CITIES,
+    },
+    subArea: {
+      type: String,
     },
     maxBudget: {
       type: Number,

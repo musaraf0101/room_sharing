@@ -3,6 +3,29 @@ import { useNavigate } from "react-router-dom";
 import api from "./../utils/api";
 import { ArrowLeft } from "lucide-react";
 
+const SRI_LANKA_CITIES = [
+  "Colombo","Dehiwala-Mount Lavinia","Sri Jayawardenepura Kotte","Moratuwa",
+  "Negombo","Kalutara","Panadura","Homagama","Kaduwela","Maharagama",
+  "Kolonnawa","Kesbewa","Gampaha","Ja-Ela","Wattala","Ragama","Kandana",
+  "Minuwangoda","Divulapitiya","Mirigama","Beruwala","Aluthgama","Matugama",
+  "Bandaragama","Kandy","Matale","Nuwara Eliya","Gampola","Nawalapitiya",
+  "Dambulla","Sigiriya","Hatton","Dikoya","Talawakele","Haputale",
+  "Bandarawela","Badulla","Mahiyanganaya","Moneragala","Welimada","Bibile",
+  "Galle","Matara","Hambantota","Weligama","Unawatuna","Hikkaduwa",
+  "Ambalangoda","Tangalle","Tissamaharama","Dickwella","Koggala","Mirissa",
+  "Deniyaya","Akuressa","Elpitiya","Jaffna","Kilinochchi","Mannar",
+  "Vavuniya","Mullaitivu","Chavakachcheri","Point Pedro","Nelliady","Kayts",
+  "Trincomalee","Batticaloa","Ampara","Kalmunai","Sammanthurai","Akkaraipattu",
+  "Kattankudy","Valaichchenai","Eravur","Chenkaladi","Kurunegala","Puttalam",
+  "Kuliyapitiya","Narammala","Wariyapola","Chilaw","Wennappuwa","Marawila",
+  "Nikaweratiya","Maho","Alawwa","Pannala","Nattandiya","Anuradhapura",
+  "Polonnaruwa","Kekirawa","Medawachchiya","Tambuttegama","Eppawala",
+  "Mihintale","Hingurakgoda","Kaduruwela","Medirigiriya","Wellawaya",
+  "Diyatalawa","Passara","Ella","Hali-Ela","Ratnapura","Kegalle","Balangoda",
+  "Embilipitiya","Avissawella","Ruwanwella","Mawanella","Rambukkana",
+  "Warakapola","Eheliyagoda","Kuruwita","Kahawatta","Pelmadulla",
+];
+
 const ROOM_TYPES = [
   { value: "single", label: "Single Room" },
   { value: "sharing", label: "Sharing Room" },
@@ -31,6 +54,7 @@ const inputCls =
 const CreateRoom = () => {
   const [roomType, setRoomType] = useState("single");
   const [location, setLocation] = useState("");
+  const [subArea, setSubArea] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
   const [price, setPrice] = useState("");
   const [securityDeposit, setSecurityDeposit] = useState("");
@@ -62,6 +86,7 @@ const CreateRoom = () => {
       const fd = new FormData();
       fd.append("roomType", roomType);
       fd.append("location", location);
+      if (subArea) fd.append("subArea", subArea);
       fd.append("whatsapp", whatsapp);
       fd.append("price", price);
       if (securityDeposit) fd.append("securityDeposit", securityDeposit);
@@ -154,13 +179,26 @@ const CreateRoom = () => {
               />
             </Field>
 
-            <Field label="Location / City" required>
-              <input
-                type="text"
+            <Field label="City" required>
+              <select
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 required
-                placeholder="e.g. Colombo 3, near Bambalapitiya station"
+                className={inputCls}
+              >
+                <option value="">Select a city</option>
+                {SRI_LANKA_CITIES.map((city) => (
+                  <option key={city} value={city}>{city}</option>
+                ))}
+              </select>
+            </Field>
+
+            <Field label="Sub Area" hint="optional">
+              <input
+                type="text"
+                value={subArea}
+                onChange={(e) => setSubArea(e.target.value)}
+                placeholder="e.g. Bambalapitiya, Fort, Pettah"
                 className={inputCls}
               />
             </Field>
@@ -169,8 +207,9 @@ const CreateRoom = () => {
               <input
                 type="text"
                 value={whatsapp}
-                onChange={(e) => setWhatsapp(e.target.value)}
+                onChange={(e) => setWhatsapp(e.target.value.slice(0, 10))}
                 required
+                maxLength={10}
                 placeholder="07X XXXXXXX"
                 className={inputCls}
               />
