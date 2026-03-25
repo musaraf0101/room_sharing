@@ -440,7 +440,7 @@ export default function Home() {
 
       {/* ── FILTER PANEL ── */}
       {showFilters && (
-        <div className="bg-white border-b border-slate-200 px-5 py-5">
+        <div className="bg-white border-b border-slate-200 px-5 py-5 sticky top-14.25 z-40">
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-slate-700">
@@ -457,7 +457,7 @@ export default function Home() {
             </div>
 
             {activeTab === "rooms" ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-3">
                 <div>
                   <p className="text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
                     Min Price
@@ -526,9 +526,17 @@ export default function Home() {
                     <option value="any">Mixed</option>
                   </Select>
                 </div>
+                <div className="flex items-end">
+                  <button
+                    onClick={handleApplyFilters}
+                    className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition"
+                  >
+                    Apply
+                  </button>
+                </div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
                 <div>
                   <p className="text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
                     City
@@ -583,17 +591,16 @@ export default function Home() {
                     <option value="short_term">Short Term</option>
                   </Select>
                 </div>
+                <div className="flex items-end">
+                  <button
+                    onClick={handleApplyFilters}
+                    className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition"
+                  >
+                    Apply
+                  </button>
+                </div>
               </div>
             )}
-
-            <div className="mt-4">
-              <button
-                onClick={handleApplyFilters}
-                className="px-6 py-2 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 transition"
-              >
-                Apply Filters
-              </button>
-            </div>
           </div>
         </div>
       )}
