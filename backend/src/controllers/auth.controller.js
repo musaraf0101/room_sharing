@@ -25,13 +25,21 @@ export const register = async (req, res) => {
 
     const { username, email, password, phoneNumber } = req.body;
 
-    const checkUser = await User.findOne({ $or: [{ email }, { username }] });
-
-    if (checkUser) {
-      logger.warn("User already exists");
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      logger.warn("Email already in use");
       return res.status(409).json({
         success: false,
-        message: "User already exists",
+        message: "Email already in use",
+      });
+    }
+
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername) {
+      logger.warn("Username already taken");
+      return res.status(409).json({
+        success: false,
+        message: "Username already taken",
       });
     }
 
@@ -188,12 +196,10 @@ export const resetPassword = async (req, res) => {
     const { password } = req.body;
 
     if (!password || password.length < 8) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Password must be at least 8 characters",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Password must be at least 8 characters",
+      });
     }
 
     const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
@@ -214,12 +220,10 @@ export const resetPassword = async (req, res) => {
     user.resetPasswordExpiry = undefined;
     await user.save();
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Password reset successful. You can now log in.",
-      });
+    res.status(200).json({
+      success: true,
+      message: "Password reset successful. You can now log in.",
+    });
   } catch (error) {
     logger.error(error.message);
     res.status(500).json({ success: false, message: "internal server error" });

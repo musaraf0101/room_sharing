@@ -12,7 +12,7 @@ export const createRequestValidation = (data) => {
     gender: joi.string().required(),
     mealsNeeded: joi.boolean().optional(),
     duration: joi.string().optional(),
-    bio: joi.string().optional(),
+    bio: joi.string().allow("").optional(),
     whatsapp: joi.string().pattern(/^\+?[0-9]{7,15}$/).required(),
   });
   return schema.validate(data);
@@ -29,7 +29,7 @@ export const updateRequestValidation = (data) => {
     gender: joi.string().optional(),
     mealsNeeded: joi.boolean().optional(),
     duration: joi.string().optional(),
-    bio: joi.string().optional(),
+    bio: joi.string().allow("").optional(),
     whatsapp: joi.string().pattern(/^\+?[0-9]{7,15}$/).optional(),
   });
   return schema.validate(data);

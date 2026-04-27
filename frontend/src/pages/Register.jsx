@@ -9,12 +9,14 @@ const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
     setError("");
+    setFieldErrors({});
     setLoading(true);
     try {
       await api.post("/auth/register", {
@@ -24,11 +26,15 @@ const Register = () => {
         phoneNumber,
       });
       navigate("/");
-    } catch (error) {
-      setError(
-        error.response?.data?.message ||
-          "Registration failed. Please try again.",
-      );
+    } catch (err) {
+      const message = err.response?.data?.message || "Registration failed. Please try again.";
+      if (message === "Email already in use") {
+        setFieldErrors({ email: message });
+      } else if (message === "Username already taken") {
+        setFieldErrors({ username: message });
+      } else {
+        setError(message);
+      }
     } finally {
       setLoading(false);
     }
@@ -130,11 +136,14 @@ const Register = () => {
               <input
                 type="text"
                 value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                onChange={(e) => { setUserName(e.target.value); setFieldErrors((p) => ({ ...p, username: "" })); }}
                 placeholder="Your name"
                 required
-                className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
+                className={`w-full px-4 py-3 bg-white dark:bg-slate-700 border rounded-xl focus:outline-none focus:ring-2 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white ${fieldErrors.username ? "border-red-400 focus:ring-red-400" : "border-slate-200 dark:border-slate-600 focus:ring-blue-500"}`}
               />
+              {fieldErrors.username && (
+                <p className="mt-1.5 text-xs text-red-500 font-medium">{fieldErrors.username}</p>
+              )}
             </div>
 
             <div>
@@ -144,11 +153,14 @@ const Register = () => {
               <input
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => { setEmail(e.target.value); setFieldErrors((p) => ({ ...p, email: "" })); }}
                 placeholder="you@example.com"
                 required
-                className="w-full px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white"
+                className={`w-full px-4 py-3 bg-white dark:bg-slate-700 border rounded-xl focus:outline-none focus:ring-2 focus:border-transparent transition placeholder:text-slate-400 dark:placeholder:text-slate-500 text-slate-900 dark:text-white ${fieldErrors.email ? "border-red-400 focus:ring-red-400" : "border-slate-200 dark:border-slate-600 focus:ring-blue-500"}`}
               />
+              {fieldErrors.email && (
+                <p className="mt-1.5 text-xs text-red-500 font-medium">{fieldErrors.email}</p>
+              )}
             </div>
 
             <div>

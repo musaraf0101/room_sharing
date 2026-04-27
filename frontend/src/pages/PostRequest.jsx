@@ -183,7 +183,7 @@ const PostRequest = () => {
         gender,
         mealsNeeded,
         duration,
-        bio,
+        bio: bio || undefined,
         whatsapp,
       });
       navigate("/home");
