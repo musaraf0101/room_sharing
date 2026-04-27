@@ -34,7 +34,7 @@ app.use("/api/user", userRouter);
 
 app.use(errorHandler);
 
-app.listen(3000, () => {
-  console.log("server is running");
-  logger.info("server is running");
+const server = app.listen(3000, () => {
+  console.log("server is running", server.address().port);
+  logger.info("server is running", server.address().port);
 });
